@@ -1,0 +1,105 @@
+<div class="calculator-card">
+    <h2>⚡ Hero Stat Comparison Tool</h2>
+    <p class="description">Compare stats of two heroes side-by-side across different levels, rarities, and gear setups.</p>
+
+    <div class="calculator-form">
+        <div class="form-group" style="margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px;">
+            <h4>Hero A</h4>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="heroARarity">Rarity</label>
+                <select id="heroARarity">
+                    <option value="epic">Epic</option>
+                    <option value="legendary">Legendary</option>
+                    <option value="mythic">Mythic</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="heroALevel">Level</label>
+                <input type="number" id="heroALevel" min="1" max="100" value="50" required>
+            </div>
+            <div class="form-group">
+                <label for="heroAGear">Gear Tier</label>
+                <select id="heroAGear">
+                    <option value="common">Common</option>
+                    <option value="rare">Rare</option>
+                    <option value="epic">Epic</option>
+                    <option value="legendary">Legendary</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 20px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px;">
+            <h4>Hero B</h4>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="heroBRarity">Rarity</label>
+                <select id="heroBRarity">
+                    <option value="epic">Epic</option>
+                    <option value="legendary" selected>Legendary</option>
+                    <option value="mythic">Mythic</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="heroBLevel">Level</label>
+                <input type="number" id="heroBLevel" min="1" max="100" value="40" required>
+            </div>
+            <div class="form-group">
+                <label for="heroBGear">Gear Tier</label>
+                <select id="heroBGear">
+                    <option value="common">Common</option>
+                    <option value="rare">Rare</option>
+                    <option value="epic" selected>Epic</option>
+                    <option value="legendary">Legendary</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="compareHeroes" class="btn btn-primary">Compare</button>
+            <button id="saveComparison" class="btn btn-success">Save</button>
+            <button id="exportComparisonCSV" class="btn btn-secondary">Export CSV</button>
+        </div>
+    </div>
+
+    <div id="comparisonResults" class="results-section hidden">
+        <h3>📊 Comparison Results</h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+            <div class="result-card">
+                <h4 id="heroAName" style="color: #6f42c1; margin-bottom: 10px;">Hero A</h4>
+                <div id="heroAStats" style="font-size: 14px; line-height: 1.8;">ATK: 0 | DEF: 0 | HP: 0</div>
+            </div>
+            <div class="result-card">
+                <h4 id="heroBName" style="color: #0d6efd; margin-bottom: 10px;">Hero B</h4>
+                <div id="heroBStats" style="font-size: 14px; line-height: 1.8;">ATK: 0 | DEF: 0 | HP: 0</div>
+            </div>
+        </div>
+
+        <div class="breakdown-section">
+            <h4>Stat Differences (Hero A vs Hero B)</h4>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                <div style="padding: 15px; background: #f8f9fa; border-radius: 5px; text-align: center;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">ATK Difference</div>
+                    <div id="atkDifference" style="font-size: 24px; font-weight: bold;">+0</div>
+                </div>
+                <div style="padding: 15px; background: #f8f9fa; border-radius: 5px; text-align: center;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">DEF Difference</div>
+                    <div id="defDifference" style="font-size: 24px; font-weight: bold;">+0</div>
+                </div>
+                <div style="padding: 15px; background: #f8f9fa; border-radius: 5px; text-align: center;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 5px;">HP Difference</div>
+                    <div id="hpDifference" style="font-size: 24px; font-weight: bold;">+0</div>
+                </div>
+            </div>
+            <p style="margin-top: 15px; font-size: 12px; color: #666;">
+                <span style="color: #28a745;">Green</span> = Hero A is stronger | 
+                <span style="color: #dc3545;">Red</span> = Hero B is stronger
+            </p>
+        </div>
+    </div>
+</div>

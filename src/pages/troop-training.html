@@ -1,0 +1,60 @@
+<div class="calculator-card">
+    <h2>🪖 Troop Training Calculator</h2>
+    <p class="description">Calculate training times, resource costs, and unit stats for all troop types.</p>
+
+    <div class="calculator-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="unitType">Unit Type</label>
+                <select id="unitType">
+                    <option value="footman">🏃 Footman</option>
+                    <option value="archer">🏹 Archer</option>
+                    <option value="cavalry">🐴 Cavalry</option>
+                    <option value="mage">🧙 Mage</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="unitQuantity">Quantity</label>
+                <input type="number" id="unitQuantity" min="1" max="100000" value="1000" required>
+            </div>
+            <div class="form-group">
+                <label for="trainingBonus">Training Speed Bonus (%)</label>
+                <input type="number" id="trainingBonus" min="0" max="300" value="0">
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="calculateTroopTraining" class="btn btn-primary">Calculate</button>
+            <button id="saveTroopTraining" class="btn btn-success">Save Results</button>
+            <button id="exportTroopTrainingCSV" class="btn btn-secondary">Export CSV</button>
+        </div>
+    </div>
+
+    <div id="troopResults" class="results-section hidden">
+        <h3>📊 Results</h3>
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-label">Units</div>
+                <div id="troopQuantity" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Training Time</div>
+                <div id="troopTotalTime" class="result-value">0h</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Cost</div>
+                <div id="troopTotalCost" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Stats</div>
+                <div id="troopTotalStats" class="result-value">ATK +0, DEF +0, HP +0</div>
+            </div>
+        </div>
+
+        <div class="breakdown-section">
+            <h4>Training Summary</h4>
+            <p>Units trained: <strong id="troopSummary"></strong></p>
+            <p>Estimated completion: Based on queue and training speed</p>
+        </div>
+    </div>
+</div>

@@ -108,7 +108,7 @@ const App = {
      * Load page content from HTML files
      */
     loadPageContent: async function() {
-        const pages = ['forgehammer', 'charms', 'pets', 'building', 'hero-xp', 'hero-shard', 'governor-gear', 'bear-pitfall', 'summary'];
+        const pages = ['forgehammer', 'charms', 'pets', 'building', 'hero-xp', 'hero-shard', 'governor-gear', 'bear-pitfall', 'troop-training', 'hero-gear-upgrade', 'hero-stat-comparison', 'summary'];
         
         const loadPromises = pages.map(async (page) => {
             try {
@@ -208,6 +208,33 @@ const App = {
                 }
             } catch (e) {
                 console.error('Error initializing BearPitfallCalculator:', e);
+            }
+
+            try {
+                if (typeof TroopTrainingCalculator !== 'undefined') {
+                    TroopTrainingCalculator.init();
+                    console.log('✓ TroopTrainingCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing TroopTrainingCalculator:', e);
+            }
+
+            try {
+                if (typeof HeroGearUpgradeCalculator !== 'undefined') {
+                    HeroGearUpgradeCalculator.init();
+                    console.log('✓ HeroGearUpgradeCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing HeroGearUpgradeCalculator:', e);
+            }
+
+            try {
+                if (typeof HeroStatComparison !== 'undefined') {
+                    HeroStatComparison.init();
+                    console.log('✓ HeroStatComparison initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing HeroStatComparison:', e);
             }
             
             console.log('All calculators initialization completed');
@@ -472,6 +499,91 @@ const App = {
                 </div>
             `;
         }
+
+        // Troop Training summary
+        const troopData = Storage.load('troop_training_data');
+        const troopSection = document.getElementById('troop-training-summary');
+
+        if (troopData && troopSection) {
+            troopSection.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Unit Type:</span>
+                        <span class="stat-value">${troopData.unitType}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Quantity:</span>
+                        <span class="stat-value">${Formatter.formatNumber(troopData.quantity)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Training Time:</span>
+                        <span class="stat-value">${troopData.trainingTime}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Resources:</span>
+                        <span class="stat-value">Gold: ${Formatter.formatNumber(troopData.totalGold)}, Wood: ${Formatter.formatNumber(troopData.totalWood)}, Stone: ${Formatter.formatNumber(troopData.totalStone)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Hero Gear Upgrade summary
+        const gearUpgradeData = Storage.load('hero_gear_data');
+        const gearUpgradeSection = document.getElementById('hero-gear-summary');
+
+        if (gearUpgradeData && gearUpgradeSection) {
+            gearUpgradeSection.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Gear Tier:</span>
+                        <span class="stat-value">${gearUpgradeData.tier}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Progress:</span>
+                        <span class="stat-value">Level ${gearUpgradeData.currentLevel} → ${gearUpgradeData.targetLevel}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Gear Slots:</span>
+                        <span class="stat-value">${gearUpgradeData.numSlots}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Materials:</span>
+                        <span class="stat-value">Material A: ${Formatter.formatNumber(gearUpgradeData.totalMaterialA)}, Material B: ${Formatter.formatNumber(gearUpgradeData.totalMaterialB)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Gold:</span>
+                        <span class="stat-value">${Formatter.formatNumber(gearUpgradeData.totalGold)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Hero Stat Comparison summary
+        const comparisonData = Storage.load('hero_comparison_data');
+        const comparisonSection = document.getElementById('hero-stat-comparison-summary');
+
+        if (comparisonData && comparisonSection) {
+            comparisonSection.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Hero A:</span>
+                        <span class="stat-value">${comparisonData.heroARarity} (Lvl ${comparisonData.heroALevel}) with ${comparisonData.heroAGear} gear</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Hero B:</span>
+                        <span class="stat-value">${comparisonData.heroBRarity} (Lvl ${comparisonData.heroBLevel}) with ${comparisonData.heroBGear} gear</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Hero A Total Stats:</span>
+                        <span class="stat-value">ATK: ${comparisonData.heroAStats.atk.toFixed(0)}, DEF: ${comparisonData.heroAStats.def.toFixed(0)}, HP: ${comparisonData.heroAStats.hp.toFixed(0)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Hero B Total Stats:</span>
+                        <span class="stat-value">ATK: ${comparisonData.heroBStats.atk.toFixed(0)}, DEF: ${comparisonData.heroBStats.def.toFixed(0)}, HP: ${comparisonData.heroBStats.hp.toFixed(0)}</span>
+                    </div>
+                </div>
+            `;
+        }
     },
 
     /**
@@ -529,7 +641,41 @@ const App = {
             allText += Exporter.formatBearResults(bearData) + '\n\n';
         }
 
-        if (!forgeData && !charmData && !petData && !gearData && !bearData && !buildingData && !heroXPData && !heroShardData) {
+        // Troop Training
+        const troopData = Storage.load('troop_training_data');
+        if (troopData) {
+            allText += 'TROOP TRAINING CALCULATOR\n' + 
+                      'Unit Type: ' + troopData.unitType + '\n' +
+                      'Quantity: ' + Formatter.formatNumber(troopData.quantity) + '\n' +
+                      'Training Time: ' + troopData.trainingTime + '\n' +
+                      'Gold Cost: ' + Formatter.formatNumber(troopData.totalGold) + '\n' +
+                      'Wood Cost: ' + Formatter.formatNumber(troopData.totalWood) + '\n' +
+                      'Stone Cost: ' + Formatter.formatNumber(troopData.totalStone) + '\n\n';
+        }
+
+        // Hero Gear Upgrade
+        const gearUpgradeData = Storage.load('hero_gear_data');
+        if (gearUpgradeData) {
+            allText += 'HERO GEAR UPGRADE CALCULATOR\n' +
+                      'Gear Tier: ' + gearUpgradeData.tier + '\n' +
+                      'Progress: Level ' + gearUpgradeData.currentLevel + ' → ' + gearUpgradeData.targetLevel + '\n' +
+                      'Gear Slots: ' + gearUpgradeData.numSlots + '\n' +
+                      'Material A Needed: ' + Formatter.formatNumber(gearUpgradeData.totalMaterialA) + '\n' +
+                      'Material B Needed: ' + Formatter.formatNumber(gearUpgradeData.totalMaterialB) + '\n' +
+                      'Gold Needed: ' + Formatter.formatNumber(gearUpgradeData.totalGold) + '\n\n';
+        }
+
+        // Hero Stat Comparison
+        const comparisonData = Storage.load('hero_comparison_data');
+        if (comparisonData) {
+            allText += 'HERO STAT COMPARISON\n' +
+                      'Hero A: ' + comparisonData.heroARarity + ' (Lvl ' + comparisonData.heroALevel + ') with ' + comparisonData.heroAGear + ' gear\n' +
+                      'Hero A Stats - ATK: ' + comparisonData.heroAStats.atk.toFixed(0) + ', DEF: ' + comparisonData.heroAStats.def.toFixed(0) + ', HP: ' + comparisonData.heroAStats.hp.toFixed(0) + '\n' +
+                      'Hero B: ' + comparisonData.heroBRarity + ' (Lvl ' + comparisonData.heroBLevel + ') with ' + comparisonData.heroBGear + ' gear\n' +
+                      'Hero B Stats - ATK: ' + comparisonData.heroBStats.atk.toFixed(0) + ', DEF: ' + comparisonData.heroBStats.def.toFixed(0) + ', HP: ' + comparisonData.heroBStats.hp.toFixed(0) + '\n\n';
+        }
+
+        if (!forgeData && !charmData && !petData && !gearData && !bearData && !buildingData && !heroXPData && !heroShardData && !troopData && !gearUpgradeData && !comparisonData) {
             alert('No data to export. Please complete at least one calculation first.');
             return;
         }
@@ -553,6 +699,9 @@ const App = {
             DOM.hide('buildingResults');
             DOM.hide('heroXPResults');
             DOM.hide('heroShardResults');
+            DOM.hide('troopTrainingResults');
+            DOM.hide('heroGearResults');
+            DOM.hide('comparisonResults');
             
             // Reset form values
             const inputs = document.querySelectorAll('input[type="number"]');
