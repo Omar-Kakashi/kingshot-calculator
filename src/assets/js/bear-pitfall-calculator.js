@@ -182,5 +182,24 @@ const BearPitfallCalculator = {
                 }
             });
         }
+
+        // Save button
+        const saveBtn = DOM.get('saveBear');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                const data = Storage.load('bear_data');
+                if (data) {
+                    const savedSets = Storage.load('bear_saved_sets') || [];
+                    savedSets.push({
+                        timestamp: new Date().toISOString(),
+                        data: data
+                    });
+                    Storage.save('bear_saved_sets', savedSets);
+                    alert(`Results saved! You have ${savedSets.length} saved calculation(s).`);
+                } else {
+                    alert('No results to save. Please calculate first.');
+                }
+            });
+        }
     }
 };

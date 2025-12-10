@@ -300,6 +300,28 @@ body {
     color: white;
 }
 
+.btn-success {
+    background: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.button-group {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.button-group .btn {
+    flex: 1;
+    min-width: 150px;
+}
+
 .btn-danger:hover {
     background: #dc2626;
 }
@@ -475,6 +497,23 @@ body {
 .tip-card p {
     color: var(--text-secondary);
     font-size: var(--font-size-sm);
+}
+
+.tip-card strong {
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.stat-info .tip-card {
+    border-left: 4px solid var(--success-color);
 }
 
 .summary-actions {

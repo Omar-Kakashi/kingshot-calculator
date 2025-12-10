@@ -321,6 +321,25 @@ const PetCalculator = {
             });
         }
 
+        // Save button
+        const saveBtn = DOM.get('savePet');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                const data = Storage.load('pet_data');
+                if (data) {
+                    const savedSets = Storage.load('pet_saved_sets') || [];
+                    savedSets.push({
+                        timestamp: new Date().toISOString(),
+                        data: data
+                    });
+                    Storage.save('pet_saved_sets', savedSets);
+                    alert(`Results saved! You have ${savedSets.length} saved calculation(s).`);
+                } else {
+                    alert('No results to save. Please calculate first.');
+                }
+            });
+        }
+
         // Auto-calculate if data exists
         if (savedData) {
             const petType = DOM.get('petType')?.value;

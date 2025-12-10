@@ -171,5 +171,24 @@ const GearCalculator = {
                 }
             });
         }
+
+        // Save button
+        const saveBtn = DOM.get('saveGear');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                const data = Storage.load('gear_data');
+                if (data) {
+                    const savedSets = Storage.load('gear_saved_sets') || [];
+                    savedSets.push({
+                        timestamp: new Date().toISOString(),
+                        data: data
+                    });
+                    Storage.save('gear_saved_sets', savedSets);
+                    alert(`Results saved! You have ${savedSets.length} saved calculation(s).`);
+                } else {
+                    alert('No results to save. Please calculate first.');
+                }
+            });
+        }
     }
 };

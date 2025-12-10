@@ -58,7 +58,10 @@
             </div>
         </div>
 
-        <button id="calculatePet" class="btn btn-primary">Calculate</button>
+        <div class="button-group">
+            <button id="calculatePet" class="btn btn-primary">Calculate</button>
+            <button id="savePet" class="btn btn-success">Save Results</button>
+        </div>
     </div>
 
     <!-- Results Section -->
@@ -105,6 +108,27 @@
             <ul id="petTips">
                 <!-- Populated by JavaScript -->
             </ul>
+        </div>
+
+        <div class="tips-section">
+            <h4>📈 Pet Stat Bonuses by Rarity</h4>
+            <div class="stat-info">
+                <div class="tip-card">
+                    <strong>Grey (Lv50):</strong> Base stats, +50-100 Governor ATK/DEF
+                </div>
+                <div class="tip-card">
+                    <strong>Green (Lv60):</strong> +20% stats, +150-200 Governor ATK/DEF, Minor skill
+                </div>
+                <div class="tip-card">
+                    <strong>Blue (Lv70):</strong> +50% stats, +300-400 Governor ATK/DEF, Active skill
+                </div>
+                <div class="tip-card">
+                    <strong>Purple (Lv80):</strong> +100% stats, +600-800 Governor ATK/DEF, Special ability
+                </div>
+                <div class="tip-card">
+                    <strong>Golden (Lv100):</strong> +200% stats, +1500-2000 Governor ATK/DEF, Critical/Heal/Debuff negation
+                </div>
+            </div>
         </div>
 
         <button id="exportPet" class="btn btn-secondary">Export Results</button>

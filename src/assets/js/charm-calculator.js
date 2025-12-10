@@ -251,6 +251,25 @@ const CharmCalculator = {
             });
         }
 
+        // Save button
+        const saveBtn = DOM.get('saveCharm');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                const data = Storage.load('charm_data');
+                if (data) {
+                    const savedSets = Storage.load('charm_saved_sets') || [];
+                    savedSets.push({
+                        timestamp: new Date().toISOString(),
+                        data: data
+                    });
+                    Storage.save('charm_saved_sets', savedSets);
+                    alert(`Results saved! You have ${savedSets.length} saved calculation(s).`);
+                } else {
+                    alert('No results to save. Please calculate first.');
+                }
+            });
+        }
+
         // Auto-calculate if data exists
         if (savedData) {
             const charmType = DOM.get('charmType')?.value;

@@ -37,9 +37,10 @@ const ForgehammerCalculator = {
      * @param {number} currentLevel - Current mastery level
      * @param {number} targetLevel - Target mastery level
      * @param {number} monthlyIncome - Monthly hammer income
+     * @param {number} numSets - Number of gear sets to calculate for
      * @returns {Object} Calculation results
      */
-    calculate: function(currentLevel, targetLevel, monthlyIncome) {
+    calculate: function(currentLevel, targetLevel, monthlyIncome, numSets = 1) {
         // Validation
         const currentValidation = Validator.validateNumber(currentLevel, 1, 20);
         if (!currentValidation.valid) {
@@ -65,6 +66,13 @@ const ForgehammerCalculator = {
             return null;
         }
 
+        // Validate number of sets
+        const setsValidation = Validator.validateNumber(numSets, 1, 10);
+        if (!setsValidation.valid) {
+            Validator.showError(setsValidation.error);
+            return null;
+        }
+
         // Calculate totals
         let totalHammers = 0;
         let totalGear = 0;
@@ -72,8 +80,8 @@ const ForgehammerCalculator = {
 
         for (let level = currentLevel + 1; level <= targetLevel; level++) {
             const cost = this.masteryCosts[level];
-            totalHammers += cost.hammers;
-            totalGear += cost.gear;
+            totalHammers += cost.hammers * numSets;
+            totalGear += cost.gear * numSets;
             
             breakdown.push({
                 level: level,
@@ -109,7 +117,10 @@ const ForgehammerCalculator = {
         DOM.show('forgehammerResults');
 
         // Update summary cards
-        DOM.setText('totalHammers', Formatter.formatNumber(results.totalHammers));
+        const hammerText = results.numSets > 1 ? 
+            `${Formatter.formatNumber(results.totalHammers)} (${results.numSets} sets)` : 
+            Formatter.formatNumber(results.totalHammers);
+        DOM.setText('totalHammers', hammerText);
         DOM.setText('timeline', results.timeline);
         DOM.setText('mythicGear', Formatter.formatNumber(results.totalGear));
 
@@ -160,12 +171,21 @@ const ForgehammerCalculator = {
             const currentLevel = parseInt(DOM.get('currentMastery')?.value);
             const targetLevel = parseInt(DOM.get('targetMastery')?.value);
             const monthlyIncome = parseInt(DOM.get('monthlyIncome')?.value);
+            const numSets = parseInt(DOM.get('numSets')?.value) || 1;
 
-            const results = this.calculate(currentLevel, targetLevel, monthlyIncome);
+            const results = this.calculate(currentLevel, targetLevel, monthlyIncome, numSets);
             if (results) {
                 this.renderResults(results);
             }
         });
+
+        // Save button
+        const saveBtn = DOM.get('saveForgehammer');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                this.saveResults();
+            });
+        }
 
         // Export button
         if (exportBtn) {

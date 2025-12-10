@@ -20,9 +20,17 @@
                 <input type="number" id="monthlyIncome" min="0" value="200" required>
                 <small>Average from Bear Trap: 150-300/month</small>
             </div>
+            <div class="form-group">
+                <label for="numSets">Number of Sets to Calculate</label>
+                <input type="number" id="numSets" min="1" max="10" value="1" required>
+                <small>Calculate for multiple gear sets (1-10)</small>
+            </div>
         </div>
 
-        <button id="calculateForgehammer" class="btn btn-primary">Calculate</button>
+        <div class="button-group">
+            <button id="calculateForgehammer" class="btn btn-primary">Calculate</button>
+            <button id="saveForgehammer" class="btn btn-success">Save Results</button>
+        </div>
     </div>
 
     <!-- Results Section -->
@@ -61,6 +69,24 @@
                         <!-- Populated by JavaScript -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h4>📈 Stat Increases by Mastery Level</h4>
+            <div class="stat-info">
+                <div class="tip-card">
+                    <strong>Level 1-5:</strong> Base ATK/DEF increases, unlock basic mastery skills
+                </div>
+                <div class="tip-card">
+                    <strong>Level 6-10:</strong> Troop capacity +5% per level, ATK +2-3% per level
+                </div>
+                <div class="tip-card">
+                    <strong>Level 11-15:</strong> Special skills unlock, Troop DMG +4-5% per level
+                </div>
+                <div class="tip-card">
+                    <strong>Level 16-20:</strong> Elite tier, Troop HP +5-8% per level, Critical +10-15%
+                </div>
             </div>
         </div>
 

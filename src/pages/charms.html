@@ -27,7 +27,10 @@
             </div>
         </div>
 
-        <button id="calculateCharm" class="btn btn-primary">Calculate</button>
+        <div class="button-group">
+            <button id="calculateCharm" class="btn btn-primary">Calculate</button>
+            <button id="saveCharm" class="btn btn-success">Save Results</button>
+        </div>
     </div>
 
     <!-- Results Section -->
@@ -74,6 +77,24 @@
             <ul id="charmTips">
                 <!-- Populated by JavaScript -->
             </ul>
+        </div>
+
+        <div class="tips-section">
+            <h4>📈 Charm Stat Bonuses</h4>
+            <div class="stat-info">
+                <div class="tip-card">
+                    <strong>Protection Charm:</strong> Governor DEF +%, Troop DEF +%, HP +%
+                </div>
+                <div class="tip-card">
+                    <strong>Keenness Charm:</strong> Governor ATK +%, Troop ATK +%, DMG +%
+                </div>
+                <div class="tip-card">
+                    <strong>Fusion Charm:</strong> Balanced mix of ATK/DEF, Special ability bonuses
+                </div>
+                <div class="tip-card">
+                    <strong>Level Milestones:</strong> Every 5 levels unlock special passive skills
+                </div>
+            </div>
         </div>
 
         <button id="exportCharm" class="btn btn-secondary">Export Results</button>
