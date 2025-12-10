@@ -14,34 +14,34 @@ const CharmCalculator = {
     },
 
     /**
-     * Verified 2025 Governor Charm costs (Levels 1-22)
-     * Source: Kings Shot 2025 verified data
-     * For levels 15-22, refer to kingshot.net/governor-charm-calculator
+     * Verified 2025 Governor Charm costs (Levels 1-11)
+     * Source: Kings Shot Wiki - Complete verified data
+     * Levels 1-11 confirmed from wiki data
      */
     charmCosts: {
-        1: { guides: 5, designs: 5, power: 205000 },
-        2: { guides: 15, designs: 30, power: 210000 },
-        3: { guides: 30, designs: 60, power: 220000 },
-        4: { guides: 50, designs: 100, power: 235000 },
-        5: { guides: 100, designs: 200, power: 255000 },
-        6: { guides: 150, designs: 260, power: 280000 },
-        7: { guides: 200, designs: 320, power: 310000 },
-        8: { guides: 280, designs: 400, power: 345000 },
-        9: { guides: 350, designs: 480, power: 385000 },
-        10: { guides: 420, designs: 420, power: 430000 },
-        11: { guides: 490, designs: 580, power: 480000 },
-        12: { guides: 560, designs: 700, power: 535000 },
-        13: { guides: 600, designs: 830, power: 595000 },
-        14: { guides: 645, designs: 960, power: 660000 },
-        // Levels 15-22: Use kingshot.net calculator for exact values
-        15: { guides: 690, designs: 1100, power: 730000, note: 'Refer to kingshot.net for exact costs' },
-        16: { guides: 735, designs: 1250, power: 805000, note: 'Refer to kingshot.net for exact costs' },
-        17: { guides: 780, designs: 1400, power: 885000, note: 'Refer to kingshot.net for exact costs' },
-        18: { guides: 825, designs: 1560, power: 970000, note: 'Refer to kingshot.net for exact costs' },
-        19: { guides: 870, designs: 1730, power: 1060000, note: 'Refer to kingshot.net for exact costs' },
-        20: { guides: 915, designs: 1900, power: 1155000, note: 'Refer to kingshot.net for exact costs' },
-        21: { guides: 960, designs: 2080, power: 1255000, note: 'Refer to kingshot.net for exact costs' },
-        22: { guides: 1005, designs: 2270, power: 1360000, note: 'Refer to kingshot.net for exact costs' }
+        1: { guides: 5, designs: 5, power: 205700 },
+        2: { guides: 40, designs: 15, power: 288000 },
+        3: { guides: 60, designs: 40, power: 370000 },
+        4: { guides: 80, designs: 100, power: 452000 },
+        5: { guides: 100, designs: 200, power: 576000 },
+        6: { guides: 120, designs: 300, power: 700000 },
+        7: { guides: 140, designs: 400, power: 824000 },
+        8: { guides: 200, designs: 400, power: 948000 },
+        9: { guides: 300, designs: 400, power: 1072000 },
+        10: { guides: 420, designs: 420, power: 1196000 },
+        11: { guides: 560, designs: 420, power: 1320000 },
+        // Levels 12-22: Estimated based on progression pattern
+        12: { guides: 700, designs: 500, power: 1450000 },
+        13: { guides: 850, designs: 600, power: 1590000 },
+        14: { guides: 1000, designs: 700, power: 1740000 },
+        15: { guides: 1150, designs: 850, power: 1900000 },
+        16: { guides: 1300, designs: 1000, power: 2070000 },
+        17: { guides: 1450, designs: 1150, power: 2250000 },
+        18: { guides: 1600, designs: 1300, power: 2440000 },
+        19: { guides: 1750, designs: 1450, power: 2640000 },
+        20: { guides: 1900, designs: 1600, power: 2850000 },
+        21: { guides: 2050, designs: 1750, power: 3070000 },
+        22: { guides: 2200, designs: 1900, power: 3300000 }
     },
 
     /**

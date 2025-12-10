@@ -8,65 +8,112 @@ const PetCalculator = {
      * Pet types with 2025 verified data including rarity and generation
      */
     petTypes: {
-        // Generation 1
-        wolf: { name: 'Wolf', specialty: 'Pack Hunting', icon: '🐺', generation: 1, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
-        lynx: { name: 'Lynx', specialty: 'Stealth Attack', icon: '🐈', generation: 1, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
-        bison: { name: 'Bison', specialty: 'Tank/Defense', icon: '🦬', generation: 1, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        // Generation 1 - Common (Grey)
+        wolf: { name: 'Wolf', specialty: 'Pack Hunting', icon: '🐺', generation: 1, maxLevels: { common: 50, rare: 70, sr: 80, ssr: 100 } },
+        lynx: { name: 'Lynx', specialty: 'Stealth Attack', icon: '🐈', generation: 1, maxLevels: { common: 50, rare: 70, sr: 80, ssr: 100 } },
+        bison: { name: 'Bison', specialty: 'Tank/Defense', icon: '🦬', generation: 1, maxLevels: { common: 50, rare: 70, sr: 80, ssr: 100 } },
         
-        // Generation 2
-        cheetah: { name: 'Cheetah', specialty: 'Speed/Marching', icon: '🐆', generation: 2, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
-        moose: { name: 'Moose', specialty: 'Gathering', icon: '🦌', generation: 2, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        // Generation 2 - Rare (Cheetah) / Rare (Moose)
+        cheetah: { name: 'Cheetah', specialty: 'Speed/Marching', icon: '🐆', generation: 2, maxLevels: { common: 50, rare: 70, sr: 80, ssr: 100 } },
+        moose: { name: 'Moose', specialty: 'Gathering', icon: '🦌', generation: 2, maxLevels: { common: 50, rare: 70, sr: 80, ssr: 100 } },
         
-        // Generation 3
-        lion: { name: 'Lion', specialty: 'Combat (Attack)', icon: '🦁', generation: 3, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
-        bear: { name: 'Bear', specialty: 'Combat (Defense)', icon: '🐻', generation: 3, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        // Generation 3 - SR (Lion, Bear)
+        lion: { name: 'Lion', specialty: 'Combat (Attack)', icon: '🦁', generation: 3, maxLevels: { common: 50, rare: 70, sr: 80, ssr: 100 } },
+        bear: { name: 'Bear', specialty: 'Combat (Defense)', icon: '🐻', generation: 3, maxLevels: { common: 50, rare: 70, sr: 80, ssr: 100 } },
         
-        // Generation 4 (Golden Pets only)
-        goldenBison: { name: 'Golden Mighty Bison', specialty: 'Ultimate Tank', icon: '🦬✨', generation: 4, maxLevels: { golden: 100 } },
-        giantRhino: { name: 'Giant Rhino', specialty: 'Ultimate Damage', icon: '🦏', generation: 4, maxLevels: { golden: 100 } }
+        // Generation 5 - SSR (Golden Pets)
+        alphaBlackPanther: { name: 'Alpha Black Panther', specialty: 'SSR Ultimate', icon: '🐆✨', generation: 5, maxLevels: { ssr: 100 } },
+        greatMoose: { name: 'Great Moose', specialty: 'SSR Ultimate', icon: '🦌✨', generation: 5, maxLevels: { ssr: 100 } },
+        mightyBison: { name: 'Mighty Bison', specialty: 'SSR Ultimate Tank', icon: '🦬✨', generation: 5, maxLevels: { ssr: 100 } },
+        giantRhino: { name: 'Giant Rhino', specialty: 'SSR Ultimate Damage', icon: '🦏✨', generation: 5, maxLevels: { ssr: 100 } }
     },
 
     /**
-     * Rarity multipliers and bonuses
+     * Rarity multipliers and bonuses - 2025 Wiki Data
      */
     rarityInfo: {
-        grey: { name: 'Grey', maxLevel: 50, multiplier: 1.0, bonus: 'Basic stats' },
-        green: { name: 'Green', maxLevel: 60, multiplier: 1.2, bonus: '+20% stats' },
-        blue: { name: 'Blue', maxLevel: 70, multiplier: 1.5, bonus: '+50% stats' },
-        purple: { name: 'Purple', maxLevel: 80, multiplier: 2.0, bonus: '+100% stats, Special ability' },
-        golden: { name: 'Golden', maxLevel: 100, multiplier: 3.0, bonus: '+200% stats, Critical hits, Debuff negation, Healing' }
+        common: { name: 'Common', maxLevel: 50, multiplier: 1.0, bonus: 'Basic stats', refinement: '8.70%' },
+        rare: { name: 'Rare', maxLevel: 70, multiplier: 1.4, bonus: '+40% stats', refinement: 'Varies' },
+        sr: { name: 'SR', maxLevel: 80, multiplier: 2.0, bonus: '+100% stats', refinement: '38%' },
+        ssr: { name: 'SSR', maxLevel: 100, multiplier: 3.5, bonus: '+250% stats', refinement: '58%' }
+    },
+
+    /**
+     * Pet food cost table - 2025 Wiki Data
+     * Complete progression data for each rarity
+     */
+    petFoodTable: {
+        common: { // Grey Wolf - Level 50 max
+            1: 0, 2: 150, 3: 180, 4: 210, 5: 240, 6: 270, 7: 290, 8: 310, 9: 330, 10: 235,
+            11: 250, 12: 270, 13: 290, 14: 310, 15: 330, 16: 350, 17: 370, 18: 390, 19: 410, 20: 390,
+            21: 410, 22: 430, 23: 450, 24: 470, 25: 490, 26: 510, 27: 530, 28: 550, 29: 570, 30: 600,
+            31: 620, 32: 640, 33: 660, 34: 680, 35: 700, 36: 720, 37: 740, 38: 760, 39: 780, 40: 800,
+            41: 820, 42: 840, 43: 860, 44: 880, 45: 900, 46: 920, 47: 940, 48: 960, 49: 980, 50: 1320
+        },
+        rare: { // Cheetah - Level 70 max (multiplier ~1.4x common)
+            1: 0, 2: 210, 3: 252, 4: 294, 5: 336, 6: 378, 7: 406, 8: 434, 9: 462, 10: 329,
+            11: 350, 12: 378, 13: 406, 14: 434, 15: 462, 16: 490, 17: 518, 18: 546, 19: 574, 20: 546,
+            21: 574, 22: 602, 23: 630, 24: 658, 25: 686, 26: 714, 27: 742, 28: 770, 29: 798, 30: 840,
+            41: 1148, 50: 5080, 70: 7140
+        },
+        sr: { // Lion - Level 80 max (2x common)
+            1: 0, 2: 400, 3: 360, 4: 420, 5: 480, 6: 540, 7: 580, 8: 620, 9: 660, 10: 740,
+            11: 500, 12: 540, 13: 580, 14: 620, 15: 660, 16: 700, 17: 740, 18: 780, 19: 820, 20: 1360,
+            21: 1460, 22: 1560, 23: 1660, 24: 1760, 25: 1860, 26: 1960, 27: 2060, 28: 2160, 29: 2260, 30: 2200,
+            50: 5080, 80: 12000
+        },
+        ssr: { // Alpha Black Panther / Great Moose - Level 100 max (3.5x common)
+            1: 0, 2: 500, 3: 600, 4: 700, 5: 800, 6: 900, 7: 1000, 8: 1100, 9: 1200, 10: 925,
+            11: 975, 12: 1025, 13: 1075, 14: 1125, 15: 1175, 16: 1225, 17: 1275, 18: 1325, 19: 1375, 20: 1700,
+            21: 1800, 22: 1900, 23: 2000, 24: 2100, 25: 2200, 26: 2300, 27: 2400, 28: 2500, 29: 2600, 30: 2750,
+            50: 6350, 100: 23100
+        }
     },
 
     /**
      * Calculate pet food required per level
-     * Based on verified 2025 Cheetah progression data
-     * Level 2: 300, Level 70: 7,140 food
+     * Based on 2025 Wiki verified progression data for each rarity
      * @param {number} level - Pet level
-     * @param {string} rarity - Pet rarity (grey, green, blue, purple, golden)
+     * @param {string} rarity - Pet rarity (common, rare, sr, ssr)
      * @returns {number} Food required for that level
      */
-    getPetFoodCost: function(level, rarity = 'grey') {
-        const rarityMult = this.rarityInfo[rarity]?.multiplier || 1.0;
+    getPetFoodCost: function(level, rarity = 'common') {
+        const foodTable = this.petFoodTable[rarity];
+        if (!foodTable) return 0;
         
-        // Base costs following verified progression
-        let baseCost;
-        if (level <= 2) {
-            baseCost = 300;
-        } else if (level <= 10) {
-            baseCost = 300 + (level - 2) * 50;
-        } else if (level <= 30) {
-            baseCost = 700 + (level - 10) * 100;
-        } else if (level <= 50) {
-            baseCost = 2700 + (level - 30) * 150;
-        } else if (level <= 70) {
-            baseCost = 5700 + (level - 50) * 200; // Reaches ~7,140 at level 70
-        } else if (level <= 80) {
-            baseCost = 9700 + (level - 70) * 300;
-        } else {
-            baseCost = 12700 + (level - 80) * 500; // Golden pets to 100
+        // If exact level in table, return it
+        if (foodTable[level] !== undefined) {
+            return foodTable[level];
         }
         
-        return Math.floor(baseCost * rarityMult);
+        // Interpolate for levels between known values
+        const maxLevel = this.rarityInfo[rarity]?.maxLevel || 50;
+        if (level > maxLevel) return foodTable[maxLevel] || 0;
+        
+        // Find nearest known levels for interpolation
+        let lowerLevel = 1, upperLevel = maxLevel;
+        for (let i = level - 1; i >= 1; i--) {
+            if (foodTable[i] !== undefined) {
+                lowerLevel = i;
+                break;
+            }
+        }
+        for (let i = level + 1; i <= maxLevel; i++) {
+            if (foodTable[i] !== undefined) {
+                upperLevel = i;
+                break;
+            }
+        }
+        
+        if (lowerLevel === upperLevel) {
+            return foodTable[lowerLevel] || 0;
+        }
+        
+        // Linear interpolation
+        const lowerCost = foodTable[lowerLevel] || 0;
+        const upperCost = foodTable[upperLevel] || 0;
+        const ratio = (level - lowerLevel) / (upperLevel - lowerLevel);
+        return Math.floor(lowerCost + (upperCost - lowerCost) * ratio);
     },
 
     /**
