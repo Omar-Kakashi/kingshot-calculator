@@ -269,23 +269,35 @@ const App = {
         const forgeSection = document.getElementById('forgehammer-summary');
         
         if (forgeData && forgeSection) {
+            const piecesText = forgeData.selectedPieces && forgeData.selectedPieces.length > 0 
+                ? `${forgeData.selectedPieces.length} gear piece(s)` 
+                : 'No pieces selected';
+            
             forgeSection.innerHTML = `
                 <div class="summary-stats">
                     <div class="stat-item">
-                        <span class="stat-label">Progress:</span>
+                        <span class="stat-label">Mastery Level:</span>
                         <span class="stat-value">Level ${forgeData.currentLevel} → ${forgeData.targetLevel}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Gear Pieces Selected:</span>
+                        <span class="stat-value">${piecesText}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Per Piece - Hammers:</span>
+                        <span class="stat-value">${Formatter.formatNumber(forgeData.hammersPerPiece || 0)}</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Total Hammers Needed:</span>
                         <span class="stat-value">${Formatter.formatNumber(forgeData.totalHammers)}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Timeline:</span>
-                        <span class="stat-value">${forgeData.timeline}</span>
+                        <span class="stat-label">Total Mythic Gear:</span>
+                        <span class="stat-value">${Formatter.formatNumber(forgeData.totalGear)}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Mythic Gear:</span>
-                        <span class="stat-value">${Formatter.formatNumber(forgeData.totalGear)}</span>
+                        <span class="stat-label">Timeline:</span>
+                        <span class="stat-value">${forgeData.timeline}</span>
                     </div>
                 </div>
             `;
