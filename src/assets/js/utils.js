@@ -246,13 +246,14 @@ const Exporter = {
         text += `Yearly Total: ${data.yearlyTotal} hammers\n`;
         text += `Daily Average: ${data.averagePerDay} hammers/day\n\n`;
         text += `Baseline Comparison: ${data.vsBaseline}\n\n`;
-        text += '=== STRATEGY TIPS ===\n';
+                text += '=== STRATEGY TIPS ===\n';
         text += '- Event occurs every ~2 days (15 events/month)\n';
-        text += '- Hero Selection: Amadeus, Helga (Cavalry/Ranged), Chenko, Yeonwoo (Infantry)\n';
+        text += '- Joining (1st Position): Chenko, Amadeus, Amane, Yeonwoo, Margot, Hilde\n';
+        text += '- Leading Infantry: Amadeus > Alcar > Zoe > Helga\n';
+        text += '- Leading Cavalry: Margot > Petra > Hilde > Jabel > Chenko\n';
+        text += '- Leading Archers: Rosa > Marlin > Saul > Yeonwoo > Amane\n';
         text += '- Formation: 80% Archers, 10% Cavalry, 10% Infantry\n';
-        text += '- Maximize Governor ATK and Troop buffs before events\n';
-        
-        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
+        text += '- Maximize Governor ATK and Troop buffs before events\n';        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
         return text;
     }
 };

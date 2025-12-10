@@ -18,9 +18,14 @@ const BearPitfallCalculator = {
      * Hero recommendations
      */
     heroes: {
-        cavalry: ['Amadeus', 'Helga'],
-        infantry: ['Chenko', 'Yeonwoo'],
-        ranged: ['Amadeus', 'Helga (for Archer formations)']
+        joining: ['Chenko', 'Amadeus', 'Amane', 'Yeonwoo', 'Margot', 'Hilde'],
+        joiningNote: 'Best heroes for 1st position (joining rallies)',
+        leading: {
+            infantry: ['Amadeus', 'Alcar', 'Zoe', 'Helga'],
+            cavalry: ['Margot', 'Petra', 'Hilde', 'Jabel', 'Chenko'],
+            archers: ['Rosa', 'Marlin', 'Saul', 'Yeonwoo', 'Amane']
+        },
+        leadingNote: 'Best heroes when leading rallies, in order of preference'
     },
 
     /**
@@ -79,8 +84,20 @@ const BearPitfallCalculator = {
                 tip: 'Bear Pitfall occurs approximately every 2 days (15 events/month)'
             },
             {
-                title: 'Hero Selection',
-                tip: `Cavalry: ${this.heroes.cavalry.join(', ')} | Infantry: ${this.heroes.infantry.join(', ')}`
+                title: 'Joining Rallies (1st Position)',
+                tip: `Best heroes: ${this.heroes.joining.join(', ')}`
+            },
+            {
+                title: 'Leading - Infantry',
+                tip: `Preference order: ${this.heroes.leading.infantry.join(' > ')}`
+            },
+            {
+                title: 'Leading - Cavalry',
+                tip: `Preference order: ${this.heroes.leading.cavalry.join(' > ')}`
+            },
+            {
+                title: 'Leading - Archers',
+                tip: `Preference order: ${this.heroes.leading.archers.join(' > ')}`
             },
             {
                 title: 'Formation Strategy',
