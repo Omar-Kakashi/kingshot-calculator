@@ -1,0 +1,69 @@
+<div class="calculator-card">
+    <h2>🔨 Forgehammer Mastery Calculator</h2>
+    <p class="description">Calculate the forgehammers and resources needed to upgrade your mastery levels.</p>
+
+    <div class="calculator-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="currentMastery">Current Mastery Level</label>
+                <input type="number" id="currentMastery" min="1" max="20" value="1" required>
+            </div>
+            <div class="form-group">
+                <label for="targetMastery">Target Mastery Level</label>
+                <input type="number" id="targetMastery" min="1" max="20" value="10" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="monthlyIncome">Monthly Hammer Income</label>
+                <input type="number" id="monthlyIncome" min="0" value="200" required>
+                <small>Average from Bear Trap: 150-300/month</small>
+            </div>
+        </div>
+
+        <button id="calculateForgehammer" class="btn btn-primary">Calculate</button>
+    </div>
+
+    <!-- Results Section -->
+    <div id="forgehammerResults" class="results-section hidden">
+        <h3>📊 Results</h3>
+        
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-label">Total Forgehammers Needed</div>
+                <div id="totalHammers" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Timeline to Completion</div>
+                <div id="timeline" class="result-value">0 months</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Mythic Gear Needed</div>
+                <div id="mythicGear" class="result-value">0</div>
+            </div>
+        </div>
+
+        <!-- Breakdown Table -->
+        <div class="breakdown-section">
+            <h4>Level Breakdown</h4>
+            <div class="table-responsive">
+                <table id="forgehammerBreakdown" class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>Hammers Required</th>
+                            <th>Mythic Gear</th>
+                            <th>Cumulative Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <button id="exportForgehammer" class="btn btn-secondary">Export Results</button>
+    </div>
+</div>

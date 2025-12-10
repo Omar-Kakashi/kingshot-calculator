@@ -1,0 +1,79 @@
+<div class="calculator-card">
+    <h2>✨ Governor Charms Calculator</h2>
+    <p class="description">Calculate charm guides and designs needed for your governor charm upgrades.</p>
+
+    <div class="calculator-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="charmType">Charm Type</label>
+                <select id="charmType" required>
+                    <option value="protection">Protection Charm</option>
+                    <option value="keenness">Keenness Charm</option>
+                    <option value="fusion">Fusion Charm</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="currentCharm">Current Charm Level</label>
+                <input type="number" id="currentCharm" min="0" max="50" value="0" required>
+            </div>
+            <div class="form-group">
+                <label for="targetCharm">Target Charm Level</label>
+                <input type="number" id="targetCharm" min="0" max="50" value="10" required>
+            </div>
+        </div>
+
+        <button id="calculateCharm" class="btn btn-primary">Calculate</button>
+    </div>
+
+    <!-- Results Section -->
+    <div id="charmResults" class="results-section hidden">
+        <h3>📊 Results</h3>
+        
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-label">Charm Guides Needed</div>
+                <div id="totalGuides" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Charm Designs Needed</div>
+                <div id="totalDesigns" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Stat Boost</div>
+                <div id="statBoost" class="result-value">0%</div>
+            </div>
+        </div>
+
+        <!-- Breakdown Table -->
+        <div class="breakdown-section">
+            <h4>Level Breakdown</h4>
+            <div class="table-responsive">
+                <table id="charmBreakdown" class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>Guides Required</th>
+                            <th>Designs Required</th>
+                            <th>Stat Boost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h4>💡 Best Value Thresholds</h4>
+            <ul id="charmTips">
+                <!-- Populated by JavaScript -->
+            </ul>
+        </div>
+
+        <button id="exportCharm" class="btn btn-secondary">Export Results</button>
+    </div>
+</div>

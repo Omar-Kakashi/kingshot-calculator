@@ -1,0 +1,90 @@
+<div class="calculator-card">
+    <h2>🐾 Pet Leveling Calculator</h2>
+    <p class="description">Calculate pet food and taming marks needed to level up your pets.</p>
+
+    <div class="calculator-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="petType">Pet Type</label>
+                <select id="petType" required>
+                    <option value="moose">Moose</option>
+                    <option value="lion">Lion</option>
+                    <option value="cheetah">Cheetah</option>
+                    <option value="bear">Bear</option>
+                    <option value="wolf">Wolf</option>
+                    <option value="eagle">Eagle</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="currentPet">Current Pet Level</label>
+                <input type="number" id="currentPet" min="1" max="100" value="1" required>
+            </div>
+            <div class="form-group">
+                <label for="targetPet">Target Pet Level</label>
+                <input type="number" id="targetPet" min="1" max="100" value="10" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dailyFood">Daily Pet Food Income</label>
+                <input type="number" id="dailyFood" min="0" value="50" required>
+                <small>From gathering and events</small>
+            </div>
+        </div>
+
+        <button id="calculatePet" class="btn btn-primary">Calculate</button>
+    </div>
+
+    <!-- Results Section -->
+    <div id="petResults" class="results-section hidden">
+        <h3>📊 Results</h3>
+        
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-label">Total Pet Food Needed</div>
+                <div id="totalFood" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Days to Completion</div>
+                <div id="daysNeeded" class="result-value">0 days</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Taming Marks (Est.)</div>
+                <div id="tamingMarks" class="result-value">0</div>
+            </div>
+        </div>
+
+        <!-- Progression Timeline -->
+        <div class="breakdown-section">
+            <h4>Progression Timeline</h4>
+            <div class="table-responsive">
+                <table id="petBreakdown" class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Level Range</th>
+                            <th>Food Required</th>
+                            <th>Days</th>
+                            <th>Cumulative Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h4>💡 Pet Leveling Tips</h4>
+            <ul id="petTips">
+                <!-- Populated by JavaScript -->
+            </ul>
+        </div>
+
+        <button id="exportPet" class="btn btn-secondary">Export Results</button>
+    </div>
+</div>
