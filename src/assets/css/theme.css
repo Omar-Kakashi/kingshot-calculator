@@ -36,38 +36,12 @@ body.dark-theme {
     background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
 }
 
-body.dark-theme .header {
-    background: rgba(31, 41, 55, 0.95);
-}
-
-body.dark-theme .nav-tabs {
-    background: rgba(31, 41, 55, 0.9);
-}
-
 body.dark-theme .footer {
-    background: rgba(31, 41, 55, 0.95);
+    background: var(--bg-card);
 }
 
-body.dark-theme .sidebar {
-    background: rgba(31, 41, 55, 0.95);
-}
-
-body.dark-theme .sidebar-item {
-    color: var(--text-secondary);
-}
-
-body.dark-theme .sidebar-item:hover {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-}
-
-body.dark-theme .sidebar-item.active {
-    background: linear-gradient(90deg, rgba(129, 140, 248, 0.2) 0%, transparent 100%);
-    color: var(--primary-color);
-}
-
-body.dark-theme .sidebar-header h2 {
-    color: var(--text-primary);
+body.dark-theme .sidebar-header {
+    border-bottom-color: var(--border-color);
 }
 
 /* Theme Toggle Animation */

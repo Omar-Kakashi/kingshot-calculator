@@ -94,7 +94,7 @@ body {
 
 /* Header */
 .header {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--bg-card);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-md);
     padding: var(--spacing-lg) var(--spacing-xl);
@@ -106,6 +106,7 @@ body {
     height: 70px;
     display: flex;
     align-items: center;
+    transition: background var(--transition-base);
 }
 
 .header-container {
@@ -170,12 +171,12 @@ body {
     top: 70px;
     width: 260px;
     height: calc(100vh - 70px);
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--bg-card);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-lg);
     padding: var(--spacing-xl) 0;
     overflow-y: auto;
-    transition: transform var(--transition-base);
+    transition: transform var(--transition-base), background var(--transition-base);
     z-index: 900;
 }
 
