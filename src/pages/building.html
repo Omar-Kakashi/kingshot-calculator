@@ -1,0 +1,106 @@
+<div class="calculator-card">
+    <h2>🏗️ Building Upgrade Calculator</h2>
+    <p class="description">Plan resource and time requirements to upgrade the True Gold Command Center with exact per-level data from kingshotwiki.com.</p>
+
+    <div class="calculator-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="buildingType">Building</label>
+                <select id="buildingType">
+                    <option value="trueGoldCommandCenter">True Gold Command Center</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="currentBuildingLevel">Current Level</label>
+                <select id="currentBuildingLevel">
+                    <option value="">Select start level</option>
+                    <option value="30-4">30-4</option>
+                    <option value="TG 1">TG 1</option>
+                    <option value="TG 2">TG 2</option>
+                    <option value="TG 3">TG 3</option>
+                    <option value="TG 4">TG 4</option>
+                    <option value="TG 5">TG 5</option>
+                    <option value="TG 6">TG 6</option>
+                    <option value="TG 7">TG 7</option>
+                    <option value="TG 8">TG 8</option>
+                    <option value="TG 9">TG 9</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="targetBuildingLevel">Target Level</label>
+                <select id="targetBuildingLevel">
+                    <option value="">Select target level</option>
+                    <option value="TG 1">TG 1</option>
+                    <option value="TG 2">TG 2</option>
+                    <option value="TG 3">TG 3</option>
+                    <option value="TG 4">TG 4</option>
+                    <option value="TG 5">TG 5</option>
+                    <option value="TG 6">TG 6</option>
+                    <option value="TG 7">TG 7</option>
+                    <option value="TG 8">TG 8</option>
+                    <option value="TG 9">TG 9</option>
+                    <option value="TG 10">TG 10</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dailyBuildHours">Daily Build Hours Available</label>
+                <input type="number" id="dailyBuildHours" min="0" value="4">
+                <small>Used to estimate timeline (optional)</small>
+            </div>
+            <div class="form-group">
+                <label for="buildSpeedBonus">Build Speed Bonus (%)</label>
+                <input type="number" id="buildSpeedBonus" min="0" max="300" value="0">
+                <small>Applies speed reduction to time</small>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="calculateBuilding" class="btn btn-primary">Calculate</button>
+            <button id="saveBuilding" class="btn btn-success">Save Results</button>
+            <button id="exportBuildingCSV" class="btn btn-secondary">Export CSV</button>
+        </div>
+    </div>
+
+    <div id="buildingResults" class="results-section hidden">
+        <h3>📊 Results</h3>
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-label">Total Time</div>
+                <div id="buildingTotalTime" class="result-value">0h</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Resources</div>
+                <div id="buildingTotalResources" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Power Gain</div>
+                <div id="buildingTotalPower" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Stat Gain</div>
+                <div id="buildingTotalStats" class="result-value">ATK +0%, DEF +0%, HP +0%</div>
+            </div>
+        </div>
+
+        <div class="breakdown-section">
+            <h4>Level Breakdown (Exact Stats)</h4>
+            <div class="table-responsive">
+                <table id="buildingBreakdown" class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>Construction Time</th>
+                            <th>Build Cost (Wood Stone Ore Gold Jewels)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

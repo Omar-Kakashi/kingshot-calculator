@@ -108,7 +108,7 @@ const App = {
      * Load page content from HTML files
      */
     loadPageContent: async function() {
-        const pages = ['forgehammer', 'charms', 'pets', 'governor-gear', 'bear-pitfall', 'summary'];
+        const pages = ['forgehammer', 'charms', 'pets', 'building', 'hero-xp', 'hero-shard', 'governor-gear', 'bear-pitfall', 'summary'];
         
         const loadPromises = pages.map(async (page) => {
             try {
@@ -163,6 +163,33 @@ const App = {
                 }
             } catch (e) {
                 console.error('Error initializing PetCalculator:', e);
+            }
+
+            try {
+                if (typeof BuildingCalculator !== 'undefined') {
+                    BuildingCalculator.init();
+                    console.log('✓ BuildingCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing BuildingCalculator:', e);
+            }
+
+            try {
+                if (typeof HeroXPCalculator !== 'undefined') {
+                    HeroXPCalculator.init();
+                    console.log('✓ HeroXPCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing HeroXPCalculator:', e);
+            }
+
+            try {
+                if (typeof HeroShardCalculator !== 'undefined') {
+                    HeroShardCalculator.init();
+                    console.log('✓ HeroShardCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing HeroShardCalculator:', e);
             }
             
             try {
@@ -360,6 +387,91 @@ const App = {
                 </div>
             `;
         }
+
+        // Building summary
+        const buildingData = Storage.load('building_data');
+        const buildingSection = document.getElementById('building-summary');
+
+        if (buildingData && buildingSection) {
+            buildingSection.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Building:</span>
+                        <span class="stat-value">${buildingData.type.replace(/-/g, ' ')}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Progress:</span>
+                        <span class="stat-value">Level ${buildingData.currentLevel} → ${buildingData.targetLevel}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Resources:</span>
+                        <span class="stat-value">${Formatter.formatNumber(Math.round(buildingData.totalResources))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Power Gain:</span>
+                        <span class="stat-value">${Formatter.formatNumber(Math.round(buildingData.totalPower))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Stat Gain:</span>
+                        <span class="stat-value">ATK +${buildingData.totalStats.atk.toFixed(1)}%, DEF +${buildingData.totalStats.def.toFixed(1)}%, HP +${buildingData.totalStats.hp.toFixed(1)}%</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Hero XP summary
+        const heroXPData = Storage.load('hero_xp_data');
+        const heroXPSection = document.getElementById('hero-xp-summary');
+
+        if (heroXPData && heroXPSection) {
+            heroXPSection.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Progress:</span>
+                        <span class="stat-value">Level ${heroXPData.currentLevel} → ${heroXPData.targetLevel}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total XP:</span>
+                        <span class="stat-value">${Formatter.formatNumber(Math.round(heroXPData.totalXP))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Stat Gain:</span>
+                        <span class="stat-value">ATK +${heroXPData.totalStats.atk.toFixed(1)}, DEF +${heroXPData.totalStats.def.toFixed(1)}, HP +${heroXPData.totalStats.hp.toFixed(1)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Hero Shard summary
+        const heroShardData = Storage.load('hero_shard_data');
+        const heroShardSection = document.getElementById('hero-shard-summary');
+
+        if (heroShardData && heroShardSection) {
+            heroShardSection.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Rarity:</span>
+                        <span class="stat-value">${heroShardData.rarity}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Stars:</span>
+                        <span class="stat-value">${heroShardData.currentStars}★ → ${heroShardData.targetStars}★</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Shards Needed:</span>
+                        <span class="stat-value">${Formatter.formatNumber(Math.round(heroShardData.totalShards))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Coins Needed:</span>
+                        <span class="stat-value">${Formatter.formatNumber(Math.round(heroShardData.totalCoins))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Stat Gain:</span>
+                        <span class="stat-value">ATK +${heroShardData.totalStats.atk.toFixed(1)}, DEF +${heroShardData.totalStats.def.toFixed(1)}, HP +${heroShardData.totalStats.hp.toFixed(1)}</span>
+                    </div>
+                </div>
+            `;
+        }
     },
 
     /**
@@ -393,13 +505,31 @@ const App = {
             allText += Exporter.formatGearResults(gearData) + '\n\n';
         }
 
+        // Building
+        const buildingData = Storage.load('building_data');
+        if (buildingData) {
+            allText += Exporter.formatBuildingResults(buildingData) + '\n\n';
+        }
+
+        // Hero XP
+        const heroXPData = Storage.load('hero_xp_data');
+        if (heroXPData) {
+            allText += Exporter.formatHeroXPResults(heroXPData) + '\n\n';
+        }
+
+        // Hero Shards
+        const heroShardData = Storage.load('hero_shard_data');
+        if (heroShardData) {
+            allText += Exporter.formatHeroShardResults(heroShardData) + '\n\n';
+        }
+
         // Bear Pitfall
         const bearData = Storage.load('bear_data');
         if (bearData) {
             allText += Exporter.formatBearResults(bearData) + '\n\n';
         }
 
-        if (!forgeData && !charmData && !petData && !gearData && !bearData) {
+        if (!forgeData && !charmData && !petData && !gearData && !bearData && !buildingData && !heroXPData && !heroShardData) {
             alert('No data to export. Please complete at least one calculation first.');
             return;
         }
@@ -420,6 +550,9 @@ const App = {
             DOM.hide('petResults');
             DOM.hide('gearResults');
             DOM.hide('bearResults');
+            DOM.hide('buildingResults');
+            DOM.hide('heroXPResults');
+            DOM.hide('heroShardResults');
             
             // Reset form values
             const inputs = document.querySelectorAll('input[type="number"]');

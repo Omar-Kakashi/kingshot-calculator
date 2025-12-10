@@ -55,7 +55,7 @@ const Storage = {
      * Clear all calculator data
      */
     clearAll: function() {
-        const keys = ['forgehammer_data', 'charm_data', 'pet_data', 'gear_data', 'bear_data', 'theme_preference'];
+        const keys = ['forgehammer_data', 'charm_data', 'pet_data', 'gear_data', 'bear_data', 'building_data', 'hero_xp_data', 'hero_shard_data', 'theme_preference'];
         keys.forEach(key => this.remove(key));
     }
 };
@@ -122,6 +122,27 @@ const Exporter = {
      */
     exportAsText: function(content, filename) {
         const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    },
+
+    /**
+     * Export data as CSV file
+     * @param {Array<string>} headers - Column headers
+     * @param {Array<Array<string|number>>} rows - Row data
+     * @param {string} filename - CSV filename
+     */
+    exportAsCSV: function(headers, rows, filename) {
+        const csvContent = [headers.join(',')]
+            .concat(rows.map(r => r.map(value => typeof value === 'string' && value.includes(',') ? `"${value}"` : value).join(',')))
+            .join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
@@ -254,6 +275,60 @@ const Exporter = {
         text += '- Leading Archers: Rosa > Marlin > Saul > Yeonwoo > Amane\n';
         text += '- Formation: 80% Archers, 10% Cavalry, 10% Infantry\n';
         text += '- Maximize Governor ATK and Troop buffs before events\n';        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
+        return text;
+    },
+
+    /**
+     * Format building results for export
+     */
+    formatBuildingResults: function(data) {
+        let text = '=== BUILDING UPGRADE CALCULATOR ===\n\n';
+        text += `Building: ${data.type}\n`;
+        text += `Current Level: ${data.currentLevel}\n`;
+        text += `Target Level: ${data.targetLevel}\n\n`;
+        text += `Total Resources: ${Math.round(data.totalResources)}\n`;
+        text += `Total Power: ${Math.round(data.totalPower)}\n`;
+        text += `Total Stats: ATK +${data.totalStats.atk.toFixed(1)}%, DEF +${data.totalStats.def.toFixed(1)}%, HP +${data.totalStats.hp.toFixed(1)}%\n\n`;
+        text += '=== LEVEL BREAKDOWN ===\n';
+        data.breakdown.forEach(item => {
+            text += `Level ${item.level}: Time ${item.timeHours.toFixed(2)}h, Resources ${Math.round(item.resources)}, Power ${Math.round(item.power)}, ATK +${item.atk.toFixed(1)}%, DEF +${item.def.toFixed(1)}%, HP +${item.hp.toFixed(1)}%\n`;
+        });
+        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
+        return text;
+    },
+
+    /**
+     * Format hero XP results for export
+     */
+    formatHeroXPResults: function(data) {
+        let text = '=== HERO XP CALCULATOR ===\n\n';
+        text += `Current Level: ${data.currentLevel}\n`;
+        text += `Target Level: ${data.targetLevel}\n`;
+        text += `Total XP: ${Math.round(data.totalXP)}\n`;
+        text += `Total Stats: ATK +${data.totalStats.atk.toFixed(1)}, DEF +${data.totalStats.def.toFixed(1)}, HP +${data.totalStats.hp.toFixed(1)}\n\n`;
+        text += '=== LEVEL BREAKDOWN ===\n';
+        data.breakdown.forEach(item => {
+            text += `Level ${item.level}: XP ${Math.round(item.xp)}, ATK +${item.atk.toFixed(1)}, DEF +${item.def.toFixed(1)}, HP +${item.hp.toFixed(1)}\n`;
+        });
+        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
+        return text;
+    },
+
+    /**
+     * Format hero shard results for export
+     */
+    formatHeroShardResults: function(data) {
+        let text = '=== HERO SHARD CALCULATOR ===\n\n';
+        text += `Rarity: ${data.rarity}\n`;
+        text += `Stars: ${data.currentStars}★ → ${data.targetStars}★\n`;
+        text += `Total Shards: ${Math.round(data.totalShards)}\n`;
+        text += `Total Coins: ${Math.round(data.totalCoins)}\n`;
+        text += `Total Stats: ATK +${data.totalStats.atk.toFixed(1)}, DEF +${data.totalStats.def.toFixed(1)}, HP +${data.totalStats.hp.toFixed(1)}\n\n`;
+        text += '=== STAR BREAKDOWN ===\n';
+        data.breakdown.forEach(item => {
+            text += `${item.star}★: ${item.shards} shards, ${item.coins} coins, ATK +${item.atk.toFixed(1)}, DEF +${item.def.toFixed(1)}, HP +${item.hp.toFixed(1)}\n`;
+        });
+        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
         return text;
     }
 };

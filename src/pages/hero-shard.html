@@ -1,0 +1,77 @@
+<div class="calculator-card">
+    <h2>💎 Hero Shard Calculator</h2>
+    <p class="description">Calculate shards and coins required to raise hero stars, with exact per-star stat gains and combined totals.</p>
+
+    <div class="calculator-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="heroRarity">Hero Rarity</label>
+                <select id="heroRarity">
+                    <option value="epic">Epic</option>
+                    <option value="legendary">Legendary</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="currentHeroStars">Current Stars</label>
+                <input type="number" id="currentHeroStars" min="0" max="5" value="0" required>
+            </div>
+            <div class="form-group">
+                <label for="targetHeroStars">Target Stars</label>
+                <input type="number" id="targetHeroStars" min="1" max="5" value="3" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="shardsOwned">Shards Already Owned</label>
+                <input type="number" id="shardsOwned" min="0" value="0">
+                <small>Optional: subtracts from total needed</small>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="calculateHeroShard" class="btn btn-primary">Calculate</button>
+            <button id="saveHeroShard" class="btn btn-success">Save Results</button>
+            <button id="exportHeroShardCSV" class="btn btn-secondary">Export CSV</button>
+        </div>
+    </div>
+
+    <div id="heroShardResults" class="results-section hidden">
+        <h3>📊 Results</h3>
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-label">Total Shards Needed</div>
+                <div id="heroTotalShards" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Coins Needed</div>
+                <div id="heroTotalCoins" class="result-value">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Total Stat Gain</div>
+                <div id="heroShardTotalStats" class="result-value">ATK +0, DEF +0, HP +0</div>
+            </div>
+        </div>
+
+        <div class="breakdown-section">
+            <h4>Star Breakdown (Exact Stats)</h4>
+            <div class="table-responsive">
+                <table id="heroShardBreakdown" class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Star</th>
+                            <th>Shards</th>
+                            <th>Coins</th>
+                            <th>ATK</th>
+                            <th>DEF</th>
+                            <th>HP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
