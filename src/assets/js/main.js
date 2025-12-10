@@ -7,7 +7,7 @@ const App = {
     /**
      * Current active tab
      */
-    currentTab: 'forgehammer',
+    currentTab: 'governor-gear',
 
     /**
      * Initialize the application
@@ -59,13 +59,39 @@ const App = {
      * Initialize tab navigation
      */
     initTabs: function() {
-        const tabButtons = document.querySelectorAll('.tab-button');
+        // Initialize sidebar menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
         
-        tabButtons.forEach(button => {
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('sidebar-hidden');
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        }
+
+        // Initialize sidebar navigation buttons
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        
+        sidebarItems.forEach(button => {
             button.addEventListener('click', () => {
                 const tabName = button.getAttribute('data-tab');
                 this.switchTab(tabName);
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('sidebar-hidden');
+                }
             });
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                sidebar.classList.add('sidebar-hidden');
+            }
         });
     },
 
@@ -74,13 +100,13 @@ const App = {
      * @param {string} tabName - Name of the tab to switch to
      */
     switchTab: function(tabName) {
-        // Update buttons
-        document.querySelectorAll('.tab-button').forEach(btn => {
+        // Update sidebar buttons
+        document.querySelectorAll('.sidebar-item').forEach(btn => {
             btn.classList.remove('active');
             btn.setAttribute('aria-selected', 'false');
         });
         
-        const activeButton = document.querySelector(`[data-tab="${tabName}"]`);
+        const activeButton = document.querySelector(`.sidebar-item[data-tab="${tabName}"]`);
         if (activeButton) {
             activeButton.classList.add('active');
             activeButton.setAttribute('aria-selected', 'true');

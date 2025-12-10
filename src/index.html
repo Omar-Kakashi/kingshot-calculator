@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kings Shot Resource Calculator - Calculate Forgehammers, Charms, and Pet Resources">
+    <meta name="description" content="Kings Shot Resource Calculator - Calculate Governor Gear, Charms, Hero Equipment, and Pet Resources">
     <title>Kings Shot Calculator</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/theme.css">
@@ -11,100 +11,76 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="logo">⚔️ Kings Shot Calculator</h1>
-                <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
+        <div class="header-container">
+            <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            <h1 class="logo">⚔️ Kings Shot Calculator</h1>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </div>
     </header>
 
-    <!-- Navigation Tabs -->
-    <nav class="nav-tabs">
-        <div class="container">
-            <ul class="tab-list" role="tablist">
-                <li role="presentation">
-                    <button class="tab-button active" data-tab="forgehammer" role="tab" aria-selected="true">
-                        🔨 Forgehammer
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="charms" role="tab" aria-selected="false">
-                        ✨ Charms
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="pets" role="tab" aria-selected="false">
-                        🐾 Pets
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="building" role="tab" aria-selected="false">
-                        🏗️ Building
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="hero-xp" role="tab" aria-selected="false">
-                        🎖️ Hero XP
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="hero-shard" role="tab" aria-selected="false">
-                        💎 Hero Shards
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="governor-gear" role="tab" aria-selected="false">
-                        🛡️ Gov Gear
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="bear-pitfall" role="tab" aria-selected="false">
-                        🐻 Bear Pitfall
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="troop-training" role="tab" aria-selected="false">
-                        🪖 Troop Training
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="hero-gear-upgrade" role="tab" aria-selected="false">
-                        ⚔️ Hero Gear
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="hero-stat-comparison" role="tab" aria-selected="false">
-                        ⚡ Stat Compare
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-button" data-tab="summary" role="tab" aria-selected="false">
-                        📊 Summary
-                    </button>
-                </li>
-            </ul>
+    <!-- Side Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Calculators</h2>
         </div>
+        <ul class="sidebar-menu" role="tablist">
+            <li role="presentation">
+                <button class="sidebar-item active" data-tab="governor-gear" role="tab" aria-selected="true">
+                    <span class="sidebar-icon">🛡️</span>
+                    <span class="sidebar-text">Governor Gear</span>
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="sidebar-item" data-tab="charms" role="tab" aria-selected="false">
+                    <span class="sidebar-icon">✨</span>
+                    <span class="sidebar-text">Governor Charms</span>
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="sidebar-item" data-tab="forgehammer" role="tab" aria-selected="false">
+                    <span class="sidebar-icon">🔨</span>
+                    <span class="sidebar-text">Hero Equipment</span>
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="sidebar-item" data-tab="pets" role="tab" aria-selected="false">
+                    <span class="sidebar-icon">🐾</span>
+                    <span class="sidebar-text">Pets</span>
+                </button>
+            </li>
+            <li role="presentation" class="sidebar-divider">
+                <button class="sidebar-item" data-tab="summary" role="tab" aria-selected="false">
+                    <span class="sidebar-icon">📊</span>
+                    <span class="sidebar-text">Summary</span>
+                </button>
+            </li>
+        </ul>
     </nav>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="container">
+        <div class="content-container">
             <!-- Tab Content Containers -->
-            <div id="forgehammer" class="tab-content active" role="tabpanel"></div>
+            <div id="governor-gear" class="tab-content active" role="tabpanel"></div>
             <div id="charms" class="tab-content" role="tabpanel"></div>
+            <div id="forgehammer" class="tab-content" role="tabpanel"></div>
             <div id="pets" class="tab-content" role="tabpanel"></div>
-            <div id="building" class="tab-content" role="tabpanel"></div>
-            <div id="hero-xp" class="tab-content" role="tabpanel"></div>
-            <div id="hero-shard" class="tab-content" role="tabpanel"></div>
-            <div id="governor-gear" class="tab-content" role="tabpanel"></div>
-            <div id="bear-pitfall" class="tab-content" role="tabpanel"></div>
-            <div id="troop-training" class="tab-content" role="tabpanel"></div>
-            <div id="hero-gear-upgrade" class="tab-content" role="tabpanel"></div>
-            <div id="hero-stat-comparison" class="tab-content" role="tabpanel"></div>
             <div id="summary" class="tab-content" role="tabpanel"></div>
+            
+            <!-- Hidden calculators -->
+            <div id="building" class="tab-content" role="tabpanel" style="display: none;"></div>
+            <div id="hero-xp" class="tab-content" role="tabpanel" style="display: none;"></div>
+            <div id="hero-shard" class="tab-content" role="tabpanel" style="display: none;"></div>
+            <div id="bear-pitfall" class="tab-content" role="tabpanel" style="display: none;"></div>
+            <div id="troop-training" class="tab-content" role="tabpanel" style="display: none;"></div>
+            <div id="hero-gear-upgrade" class="tab-content" role="tabpanel" style="display: none;"></div>
+            <div id="hero-stat-comparison" class="tab-content" role="tabpanel" style="display: none;"></div>
         </div>
     </main>
 
