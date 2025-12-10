@@ -1,81 +1,103 @@
 <div class="calculator-card">
-    <h2>⚔️ Hero Gear Upgrade Calculator</h2>
-    <p class="description">Plan materials and resources needed to enhance hero gear across tiers and levels.</p>
+    <div class="calculator-header">
+        <h2><span class="header-icon">⚔️</span> Hero Gear Stat Progression</h2>
+        <p class="description">Calculate stat increases for hero gear from Level 0-200 (Gold & Red gear) with 2025 community data</p>
+    </div>
 
     <div class="calculator-form">
         <div class="form-row">
             <div class="form-group">
-                <label for="gearTier">Gear Tier</label>
-                <select id="gearTier">
-                    <option value="common">Common</option>
-                    <option value="rare">Rare</option>
-                    <option value="epic">Epic</option>
-                    <option value="legendary">Legendary</option>
+                <label for="troopType">Troop Type</label>
+                <select id="troopType" required>
+                    <option value="infantry">🛡️ Infantry</option>
+                    <option value="archer">🏹 Archer</option>
+                    <option value="cavalry">🐎 Cavalry</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="currentGearLevel">Current Level</label>
-                <input type="number" id="currentGearLevel" min="0" max="25" value="1" required>
-            </div>
-            <div class="form-group">
-                <label for="targetGearLevel">Target Level</label>
-                <input type="number" id="targetGearLevel" min="1" max="25" value="10" required>
+                <label for="gearType">Gear Piece</label>
+                <select id="gearType" required>
+                    <option value="helmet">⛑️ Helmet</option>
+                    <option value="chest">🦺 Chest</option>
+                    <option value="gloves">🧤 Gloves</option>
+                    <option value="boots">👢 Boots</option>
+                </select>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="gearSlots">Number of Slots</label>
-                <input type="number" id="gearSlots" min="1" max="6" value="1">
-                <small>How many gear slots to upgrade simultaneously</small>
+                <label for="currentGearLevel">Current Level</label>
+                <input type="number" id="currentGearLevel" min="0" max="200" value="0" required>
+                <small>Levels 0-100: Gold Gear | Levels 101-200: Red Gear</small>
+            </div>
+            <div class="form-group">
+                <label for="targetGearLevel">Target Level</label>
+                <input type="number" id="targetGearLevel" min="0" max="200" value="100" required>
+                <small>Red imbuements occur at levels 120, 140, 160, 180, 200</small>
             </div>
         </div>
 
         <div class="button-group">
-            <button id="calculateHeroGear" class="btn btn-primary">Calculate</button>
-            <button id="saveHeroGear" class="btn btn-success">Save Results</button>
+            <button id="calculateHeroGear" class="btn btn-primary">Calculate Stats</button>
             <button id="exportHeroGearCSV" class="btn btn-secondary">Export CSV</button>
         </div>
     </div>
 
-    <div id="gearResults" class="results-section hidden">
-        <h3>📊 Results</h3>
-        <div class="results-grid">
-            <div class="result-card">
-                <div class="result-label">Material A</div>
-                <div id="gearTotalMaterialA" class="result-value">0</div>
-            </div>
-            <div class="result-card">
-                <div class="result-label">Material B</div>
-                <div id="gearTotalMaterialB" class="result-value">0</div>
-            </div>
-            <div class="result-card">
-                <div class="result-label">Total Gold</div>
-                <div id="gearTotalGold" class="result-value">0</div>
-            </div>
-            <div class="result-card">
-                <div class="result-label">Stat Boost</div>
-                <div id="gearStatBoost" class="result-value">+0%</div>
+    <div id="heroGearResults" class="results-section hidden">
+        <h3>📊 Stat Increases</h3>
+        
+        <!-- Gold Gear Stats Summary -->
+        <div id="goldStatsContainer" class="results-section" style="display: none;">
+            <h4>🌟 Gold Gear Stats (Linear Progression)</h4>
+            <div class="results-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <!-- Populated by JavaScript -->
             </div>
         </div>
 
-        <div class="breakdown-section">
-            <h4>Level Breakdown</h4>
+        <!-- Red Gear Imbuements -->
+        <div id="redImbuementsContainer" class="results-section" style="display: none; margin-top: 20px;">
+            <h4>🔴 Red Gear Imbuements (Milestones)</h4>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Detailed Breakdown -->
+        <div class="breakdown-section" style="margin-top: 30px;">
+            <h4>Level-by-Level Breakdown</h4>
             <div class="table-responsive">
-                <table id="gearBreakdown" class="breakdown-table">
+                <table id="heroGearBreakdown" class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Level</th>
-                            <th>Material A</th>
-                            <th>Material B</th>
-                            <th>Gold</th>
-                            <th>Stat Boost</th>
+                            <th>Phase</th>
+                            <th>Stats</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Populated by JavaScript -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+        <h4>📖 Hero Gear Progression Guide</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 15px;">
+            <div>
+                <strong>🌟 Gold Gear (Levels 0-100)</strong>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">Linear stat increases per level. Expedition stats (Lethality/Health) increase by 0.35% per level. Conquest stats (Hero/Escort) increase by fixed amounts per level based on troop type.</p>
+            </div>
+            <div>
+                <strong>🔴 Red Gear (Levels 101-200)</strong>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">Imbuement milestones at +20 intervals (120, 140, 160, 180, 200). Large percentage boosts alternating between Expedition (troop buffs) and Conquest (hero buffs).</p>
+            </div>
+            <div>
+                <strong>⚔️ Troop Types</strong>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">Infantry: Balanced stats. Archer: Higher attack, lower health. Cavalry: Higher health, moderate attack. Each has unique stat growth rates.</p>
             </div>
         </div>
     </div>
