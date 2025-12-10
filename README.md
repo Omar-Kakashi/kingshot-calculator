@@ -44,12 +44,21 @@ The Kings Shot Calculator helps players optimize their resource management acros
 - Strategic tips and recommendations
 - Best value thresholds
 
+## 🌐 Live Demo
+
+**🎮 Try it now:** [https://omar-kakashi.github.io/kingshot-calculator/](https://omar-kakashi.github.io/kingshot-calculator/)
+
+The calculator is live and accessible from any device with a web browser!
+
 ## 🚀 Quick Start
 
-### Option 1: Direct Use (Recommended)
+### Option 1: Use Online (Easiest)
+Simply visit: **https://omar-kakashi.github.io/kingshot-calculator/**
+
+### Option 2: Run Locally
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/kingshot-calculator.git
+git clone https://github.com/Omar-Kakashi/kingshot-calculator.git
 cd kingshot-calculator
 
 # Open in browser
