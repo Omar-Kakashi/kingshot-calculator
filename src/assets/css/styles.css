@@ -278,6 +278,33 @@ body {
     margin-bottom: var(--spacing-xl);
 }
 
+.calculator-header {
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 3px solid var(--border-color);
+}
+
+.calculator-header h2 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.header-icon {
+    font-size: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+}
+
 .calculator-card h2 {
     font-size: var(--font-size-3xl);
     margin-bottom: var(--spacing-md);
@@ -286,8 +313,9 @@ body {
 
 .description {
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-xl);
-    font-size: var(--font-size-lg);
+    margin-bottom: 0;
+    font-size: var(--font-size-base);
+    line-height: 1.6;
 }
 
 /* ============================================
