@@ -292,6 +292,34 @@ const PetCalculator = {
         DOM.setText('daysNeeded', Formatter.formatDays(results.days));
         DOM.setText('tamingMarks', Formatter.formatNumber(results.tamingMarks));
 
+        // Display pet stat information
+        const petStatInfo = DOM.get('petStatInfo');
+        if (petStatInfo) {
+            const rarityKey = results.rarity.toLowerCase().replace(' ', '');
+            const rarityData = this.rarityInfo[rarityKey] || this.rarityInfo.common;
+            
+            petStatInfo.innerHTML = `
+                <div style="padding: 10px; background: white; border-radius: 5px;">
+                    <strong style="color: #0369a1;">Pet:</strong> ${results.icon} ${results.petType}
+                </div>
+                <div style="padding: 10px; background: white; border-radius: 5px;">
+                    <strong style="color: #0369a1;">Generation:</strong> Gen ${results.generation}
+                </div>
+                <div style="padding: 10px; background: white; border-radius: 5px;">
+                    <strong style="color: #0369a1;">Rarity:</strong> ${results.rarity} (Max Lv ${results.maxLevel})
+                </div>
+                <div style="padding: 10px; background: white; border-radius: 5px;">
+                    <strong style="color: #0369a1;">Stat Multiplier:</strong> ${rarityData.multiplier}x
+                </div>
+                <div style="padding: 10px; background: white; border-radius: 5px;">
+                    <strong style="color: #0369a1;">Bonus:</strong> ${rarityData.bonus}
+                </div>
+                <div style="padding: 10px; background: white; border-radius: 5px;">
+                    <strong style="color: #0369a1;">Refinement:</strong> ${rarityData.refinement}
+                </div>
+            `;
+        }
+
         // Build breakdown table
         const tbody = document.querySelector('#petBreakdown tbody');
         tbody.innerHTML = '';

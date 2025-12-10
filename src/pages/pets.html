@@ -85,6 +85,14 @@
             </div>
         </div>
 
+        <!-- Pet Stat Information -->
+        <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+            <h4 style="margin-top: 0; color: #0369a1;">🎯 Pet Stats for Selected Rarity</h4>
+            <div id="petStatInfo" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
         <!-- Progression Timeline -->
         <div class="breakdown-section">
             <h4>Progression Timeline</h4>
@@ -112,23 +120,80 @@
             </ul>
         </div>
 
-        <div class="tips-section">
+        <!-- Pet Generation & Rarity Information -->
+        <div class="tips-section" style="margin-top: 30px;">
+            <h4>🐾 Pet Generations & Rarities (2025 Data)</h4>
+            <div class="stat-info">
+                <div class="tip-card">
+                    <strong>Gen 1 Pets (Common):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">🐺 Wolf (Pack Hunting), 🐈 Lynx (Stealth), 🦬 Bison (Tank/Defense)</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 3px;">Max Level: Common-50, Rare-70, SR-80, SSR-100</p>
+                </div>
+                <div class="tip-card">
+                    <strong>Gen 2 Pets (Rare):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">🐆 Cheetah (Speed/March), 🦌 Moose (Gathering)</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 3px;">Max Level: Common-50, Rare-70, SR-80, SSR-100</p>
+                </div>
+                <div class="tip-card">
+                    <strong>Gen 3 Pets (SR):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">🦁 Lion (Combat/Attack), 🐻 Bear (Combat/Defense)</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 3px;">Max Level: Common-50, Rare-70, SR-80, SSR-100</p>
+                </div>
+                <div class="tip-card">
+                    <strong>Gen 5 Pets (SSR/Golden):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">🐆✨ Alpha Black Panther, 🦌✨ Great Moose, 🦬✨ Mighty Bison, 🦏✨ Giant Rhino</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 3px;">Max Level: SSR-100 only. Ultimate endgame pets with +250% stats</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-section" style="margin-top: 20px;">
             <h4>📈 Pet Stat Bonuses by Rarity</h4>
             <div class="stat-info">
                 <div class="tip-card">
-                    <strong>Grey (Lv50):</strong> Base stats, +50-100 Governor ATK/DEF
+                    <strong>Common/Grey (Max Lv 50):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">Multiplier: 1.0x (Base stats)</p>
+                    <p style="font-size: 12px; margin-top: 3px;">Governor: +50-100 ATK/DEF | Refinement: 8.70%</p>
                 </div>
                 <div class="tip-card">
-                    <strong>Green (Lv60):</strong> +20% stats, +150-200 Governor ATK/DEF, Minor skill
+                    <strong>Rare/Green (Max Lv 70):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">Multiplier: 1.4x (+40% stats)</p>
+                    <p style="font-size: 12px; margin-top: 3px;">Governor: +150-200 ATK/DEF | Minor skill unlock</p>
                 </div>
                 <div class="tip-card">
-                    <strong>Blue (Lv70):</strong> +50% stats, +300-400 Governor ATK/DEF, Active skill
+                    <strong>SR/Blue (Max Lv 80):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">Multiplier: 2.0x (+100% stats)</p>
+                    <p style="font-size: 12px; margin-top: 3px;">Governor: +300-400 ATK/DEF | Refinement: 38% | Active skill</p>
                 </div>
                 <div class="tip-card">
-                    <strong>Purple (Lv80):</strong> +100% stats, +600-800 Governor ATK/DEF, Special ability
+                    <strong>SSR/Purple (Max Lv 100):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">Multiplier: 3.5x (+250% stats)</p>
+                    <p style="font-size: 12px; margin-top: 3px;">Governor: +600-1000 ATK/DEF | Refinement: 58% | Special ability + passive</p>
                 </div>
                 <div class="tip-card">
-                    <strong>Golden (Lv100):</strong> +200% stats, +1500-2000 Governor ATK/DEF, Critical/Heal/Debuff negation
+                    <strong>Golden/SSR (Max Lv 100):</strong>
+                    <p style="font-size: 13px; margin-top: 5px;">Multiplier: 3.5x (+250% stats) + Enhanced Skills</p>
+                    <p style="font-size: 12px; margin-top: 3px;">Governor: +1500-2000 ATK/DEF | Critical/Heal/Debuff negation | Ultimate combat skills</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-section" style="margin-top: 20px;">
+            <h4>💎 Pet Food Progression (Verified 2025 Data)</h4>
+            <div class="stat-info">
+                <div class="tip-card">
+                    <strong>Food Cost Examples:</strong>
+                    <p style="font-size: 12px; margin-top: 5px;">• Common (Lv 1→50): ~25,000 food total</p>
+                    <p style="font-size: 12px;">• Rare (Lv 1→70): ~50,000 food total</p>
+                    <p style="font-size: 12px;">• SR (Lv 1→80): ~95,000 food total</p>
+                    <p style="font-size: 12px;">• SSR (Lv 1→100): ~230,000 food total</p>
+                </div>
+                <div class="tip-card">
+                    <strong>Progression Notes:</strong>
+                    <p style="font-size: 12px; margin-top: 5px;">• Food costs increase progressively per level</p>
+                    <p style="font-size: 12px;">• Major cost jumps at levels 10, 20, 30, 40, 50</p>
+                    <p style="font-size: 12px;">• SSR pets require 3.5x more food than Common</p>
+                    <p style="font-size: 12px;">• Focus one pet to high rarity for best ROI</p>
                 </div>
             </div>
         </div>

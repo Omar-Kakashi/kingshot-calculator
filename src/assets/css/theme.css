@@ -48,6 +48,28 @@ body.dark-theme .footer {
     background: rgba(31, 41, 55, 0.95);
 }
 
+body.dark-theme .sidebar {
+    background: rgba(31, 41, 55, 0.95);
+}
+
+body.dark-theme .sidebar-item {
+    color: var(--text-secondary);
+}
+
+body.dark-theme .sidebar-item:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+body.dark-theme .sidebar-item.active {
+    background: linear-gradient(90deg, rgba(129, 140, 248, 0.2) 0%, transparent 100%);
+    color: var(--primary-color);
+}
+
+body.dark-theme .sidebar-header h2 {
+    color: var(--text-primary);
+}
+
 /* Theme Toggle Animation */
 .theme-toggle {
     position: relative;
@@ -66,6 +88,74 @@ body.dark-theme .footer {
 /* Dark theme specific adjustments */
 body.dark-theme .calculator-card {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-theme .calculator-header {
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-theme .description {
+    color: var(--text-secondary);
+}
+
+body.dark-theme .info-section {
+    background: var(--bg-tertiary) !important;
+}
+
+body.dark-theme .info-section p,
+body.dark-theme .info-section strong {
+    color: var(--text-primary) !important;
+}
+
+body.dark-theme .result-card {
+    background: var(--bg-tertiary);
+}
+
+body.dark-theme .result-label {
+    color: var(--text-muted);
+}
+
+body.dark-theme .result-value {
+    color: var(--text-primary);
+}
+
+body.dark-theme .breakdown-table th {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+body.dark-theme .breakdown-table td {
+    color: var(--text-secondary);
+}
+
+body.dark-theme label,
+body.dark-theme small {
+    color: var(--text-secondary);
+}
+
+body.dark-theme .imbuement-item {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+body.dark-theme #petStatInfo > div {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+body.dark-theme #petStatInfo strong {
+    color: var(--primary-color) !important;
+}
+
+body.dark-theme .stat-info .tip-card p {
+    color: var(--text-secondary) !important;
+}
+
+body.dark-theme .badge {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
 body.dark-theme .form-group input,
