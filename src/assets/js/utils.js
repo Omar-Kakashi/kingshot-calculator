@@ -55,7 +55,7 @@ const Storage = {
      * Clear all calculator data
      */
     clearAll: function() {
-        const keys = ['forgehammer_data', 'charm_data', 'pet_data', 'theme_preference'];
+        const keys = ['forgehammer_data', 'charm_data', 'pet_data', 'gear_data', 'bear_data', 'theme_preference'];
         keys.forEach(key => this.remove(key));
     }
 };
@@ -201,6 +201,56 @@ const Exporter = {
         data.breakdown.forEach(item => {
             text += `Levels ${item.range}: ${item.food} food, ${item.days} days\n`;
         });
+        
+        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
+        return text;
+    },
+
+    /**
+     * Format gear results for export
+     * @param {Object} data - Calculation data
+     * @returns {string} Formatted text
+     */
+    formatGearResults: function(data) {
+        let text = '=== GOVERNOR GEAR ENHANCEMENT CALCULATOR ===\n\n';
+        text += `Current Tier: ${data.currentTier}\n`;
+        text += `Target Tier: ${data.targetTier}\n`;
+        text += `Number of Slots: ${data.numSlots}\n\n`;
+        text += `Total Satin Needed: ${data.totalSatin}\n`;
+        text += `Total Gilded Threads: ${data.totalThreads}\n`;
+        text += `Total Artisan's Vision: ${data.totalVision}\n\n`;
+        text += '=== TIER BREAKDOWN ===\n';
+        
+        data.breakdown.forEach(item => {
+            text += `${item.tier}: ${item.satin} satin, ${item.threads} threads`;
+            if (item.vision > 0) {
+                text += `, ${item.vision} vision`;
+            }
+            text += `\n`;
+        });
+        
+        text += `\nGenerated: ${new Date().toLocaleString()}\n`;
+        return text;
+    },
+
+    /**
+     * Format bear pitfall results for export
+     * @param {Object} data - Calculation data
+     * @returns {string} Formatted text
+     */
+    formatBearResults: function(data) {
+        let text = '=== BEAR PITFALL EVENT CALCULATOR ===\n\n';
+        text += `Events Per Month: ${data.eventsPerMonth}\n`;
+        text += `Hammers Per Event: ${data.hammersPerEvent}\n\n`;
+        text += `Monthly Total: ${data.monthlyTotal} hammers\n`;
+        text += `Yearly Total: ${data.yearlyTotal} hammers\n`;
+        text += `Daily Average: ${data.averagePerDay} hammers/day\n\n`;
+        text += `Baseline Comparison: ${data.vsBaseline}\n\n`;
+        text += '=== STRATEGY TIPS ===\n';
+        text += '- Event occurs every ~2 days (15 events/month)\n';
+        text += '- Hero Selection: Amadeus, Helga (Cavalry/Ranged), Chenko, Yeonwoo (Infantry)\n';
+        text += '- Formation: 80% Archers, 10% Cavalry, 10% Infantry\n';
+        text += '- Maximize Governor ATK and Troop buffs before events\n';
         
         text += `\nGenerated: ${new Date().toLocaleString()}\n`;
         return text;

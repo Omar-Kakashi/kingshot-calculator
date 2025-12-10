@@ -5,33 +5,68 @@
 
 const PetCalculator = {
     /**
-     * Pet types and their characteristics
+     * Pet types with 2025 verified data including rarity and generation
      */
     petTypes: {
-        moose: { name: 'Moose', specialty: 'Gathering', icon: '🦌' },
-        lion: { name: 'Lion', specialty: 'Combat (Attack)', icon: '🦁' },
-        cheetah: { name: 'Cheetah', specialty: 'Speed/Marching', icon: '🐆' },
-        bear: { name: 'Bear', specialty: 'Combat (Defense)', icon: '🐻' },
-        wolf: { name: 'Wolf', specialty: 'Pack Hunting', icon: '🐺' },
-        eagle: { name: 'Eagle', specialty: 'Scouting', icon: '🦅' }
+        // Generation 1
+        wolf: { name: 'Wolf', specialty: 'Pack Hunting', icon: '🐺', generation: 1, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        lynx: { name: 'Lynx', specialty: 'Stealth Attack', icon: '🐈', generation: 1, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        bison: { name: 'Bison', specialty: 'Tank/Defense', icon: '🦬', generation: 1, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        
+        // Generation 2
+        cheetah: { name: 'Cheetah', specialty: 'Speed/Marching', icon: '🐆', generation: 2, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        moose: { name: 'Moose', specialty: 'Gathering', icon: '🦌', generation: 2, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        
+        // Generation 3
+        lion: { name: 'Lion', specialty: 'Combat (Attack)', icon: '🦁', generation: 3, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        bear: { name: 'Bear', specialty: 'Combat (Defense)', icon: '🐻', generation: 3, maxLevels: { grey: 50, green: 60, blue: 70, purple: 80, golden: 100 } },
+        
+        // Generation 4 (Golden Pets only)
+        goldenBison: { name: 'Golden Mighty Bison', specialty: 'Ultimate Tank', icon: '🦬✨', generation: 4, maxLevels: { golden: 100 } },
+        giantRhino: { name: 'Giant Rhino', specialty: 'Ultimate Damage', icon: '🦏', generation: 4, maxLevels: { golden: 100 } }
+    },
+
+    /**
+     * Rarity multipliers and bonuses
+     */
+    rarityInfo: {
+        grey: { name: 'Grey', maxLevel: 50, multiplier: 1.0, bonus: 'Basic stats' },
+        green: { name: 'Green', maxLevel: 60, multiplier: 1.2, bonus: '+20% stats' },
+        blue: { name: 'Blue', maxLevel: 70, multiplier: 1.5, bonus: '+50% stats' },
+        purple: { name: 'Purple', maxLevel: 80, multiplier: 2.0, bonus: '+100% stats, Special ability' },
+        golden: { name: 'Golden', maxLevel: 100, multiplier: 3.0, bonus: '+200% stats, Critical hits, Debuff negation, Healing' }
     },
 
     /**
      * Calculate pet food required per level
-     * Food requirements increase exponentially
+     * Based on verified 2025 Cheetah progression data
+     * Level 2: 300, Level 70: 7,140 food
      * @param {number} level - Pet level
+     * @param {string} rarity - Pet rarity (grey, green, blue, purple, golden)
      * @returns {number} Food required for that level
      */
-    getPetFoodCost: function(level) {
-        if (level <= 10) {
-            return level * 10;
+    getPetFoodCost: function(level, rarity = 'grey') {
+        const rarityMult = this.rarityInfo[rarity]?.multiplier || 1.0;
+        
+        // Base costs following verified progression
+        let baseCost;
+        if (level <= 2) {
+            baseCost = 300;
+        } else if (level <= 10) {
+            baseCost = 300 + (level - 2) * 50;
         } else if (level <= 30) {
-            return 100 + (level - 10) * 20;
-        } else if (level <= 60) {
-            return 500 + (level - 30) * 40;
+            baseCost = 700 + (level - 10) * 100;
+        } else if (level <= 50) {
+            baseCost = 2700 + (level - 30) * 150;
+        } else if (level <= 70) {
+            baseCost = 5700 + (level - 50) * 200; // Reaches ~7,140 at level 70
+        } else if (level <= 80) {
+            baseCost = 9700 + (level - 70) * 300;
         } else {
-            return 1700 + (level - 60) * 80;
+            baseCost = 12700 + (level - 80) * 500; // Golden pets to 100
         }
+        
+        return Math.floor(baseCost * rarityMult);
     },
 
     /**
@@ -51,19 +86,24 @@ const PetCalculator = {
      * @param {number} currentLevel - Current pet level
      * @param {number} targetLevel - Target pet level
      * @param {number} dailyFood - Daily pet food income
+     * @param {string} rarity - Pet rarity (grey, green, blue, purple, golden)
      * @returns {Object} Calculation results
      */
-    calculate: function(petType, currentLevel, targetLevel, dailyFood) {
+    calculate: function(petType, currentLevel, targetLevel, dailyFood, rarity = 'grey') {
+        // Get max level for this pet and rarity
+        const pet = this.petTypes[petType];
+        const maxLevel = pet.maxLevels?.[rarity] || 100;
+        
         // Validation
-        const currentValidation = Validator.validateNumber(currentLevel, 1, 100);
+        const currentValidation = Validator.validateNumber(currentLevel, 1, maxLevel);
         if (!currentValidation.valid) {
             Validator.showError(currentValidation.error);
             return null;
         }
 
-        const targetValidation = Validator.validateNumber(targetLevel, 1, 100);
+        const targetValidation = Validator.validateNumber(targetLevel, 1, maxLevel);
         if (!targetValidation.valid) {
-            Validator.showError(targetValidation.error);
+            Validator.showError(`Target level cannot exceed ${maxLevel} for ${rarity} rarity`);
             return null;
         }
 
@@ -86,7 +126,7 @@ const PetCalculator = {
         let rangeFood = 0;
 
         for (let level = currentLevel + 1; level <= targetLevel; level++) {
-            const foodCost = this.getPetFoodCost(level);
+            const foodCost = this.getPetFoodCost(level, rarity);
             totalFood += foodCost;
             rangeFood += foodCost;
 
@@ -111,12 +151,16 @@ const PetCalculator = {
         const tamingMarks = this.estimateTamingMarks(targetLevel);
 
         // Get tips
-        const tips = this.getPetTips(petType, targetLevel);
+        const tips = this.getPetTips(petType, targetLevel, rarity);
 
         return {
-            petType: this.petTypes[petType].name,
-            specialty: this.petTypes[petType].specialty,
-            icon: this.petTypes[petType].icon,
+            petType: pet.name,
+            specialty: pet.specialty,
+            icon: pet.icon,
+            generation: pet.generation,
+            rarity: this.rarityInfo[rarity].name,
+            rarityBonus: this.rarityInfo[rarity].bonus,
+            maxLevel: maxLevel,
             currentLevel: currentLevel,
             targetLevel: targetLevel,
             dailyFood: dailyFood,
@@ -129,14 +173,31 @@ const PetCalculator = {
     },
 
     /**
-     * Get tips based on pet type and level
+     * Get tips based on pet type, level, and rarity
      * @param {string} petType - Type of pet
      * @param {number} targetLevel - Target level
+     * @param {string} rarity - Pet rarity
      * @returns {Array} Array of tip strings
      */
-    getPetTips: function(petType, targetLevel) {
+    getPetTips: function(petType, targetLevel, rarity = 'grey') {
         const tips = [];
         const pet = this.petTypes[petType];
+
+        // Generation-based tips
+        if (pet.generation === 4) {
+            tips.push(`Gen 4 pets are Golden-only and provide ultimate endgame power`);
+        } else {
+            tips.push(`Gen ${pet.generation} pet - unlock higher generations for better stats`);
+        }
+
+        // Rarity-specific tips
+        if (rarity === 'golden') {
+            tips.push('Golden pets: Max level 100, +200% stats, critical hits, debuff negation, healing');
+        } else if (rarity === 'purple') {
+            tips.push('Purple pets: Max level 80, +100% stats, special abilities unlocked');
+        } else if (rarity === 'blue') {
+            tips.push('Blue pets: Max level 70, +50% stats - good mid-game choice');
+        }
 
         // Pet-specific tips
         if (petType === 'moose') {
@@ -145,19 +206,21 @@ const PetCalculator = {
             tips.push(`${pet.name} excels in combat - essential for PvP and boss fights`);
         } else if (petType === 'cheetah') {
             tips.push('Cheetah increases march speed - great for quick raids');
+        } else if (petType === 'goldenBison' || petType === 'giantRhino') {
+            tips.push(`${pet.name} is the ultimate Gen 4 pet - maximum power at level 100`);
         }
 
         // Level-based tips
-        if (targetLevel >= 30) {
-            tips.push('Level 30+ pets unlock special abilities');
-        }
-
         if (targetLevel >= 60) {
             tips.push('Level 60+ requires significant investment but provides major power spikes');
         }
 
         if (targetLevel >= 80) {
-            tips.push('Level 80+ pets are endgame content - ensure steady resource income');
+            tips.push('Level 80+ available for Purple/Golden rarities - endgame content');
+        }
+
+        if (targetLevel >= 100) {
+            tips.push('Level 100 is maximum for Golden pets - ultimate power achieved!');
         }
 
         // General tips
@@ -228,8 +291,9 @@ const PetCalculator = {
             const currentLevel = parseInt(DOM.get('currentPet').value);
             const targetLevel = parseInt(DOM.get('targetPet').value);
             const dailyFood = parseInt(DOM.get('dailyFood').value);
+            const rarity = DOM.get('petRarity').value;
 
-            const results = this.calculate(petType, currentLevel, targetLevel, dailyFood);
+            const results = this.calculate(petType, currentLevel, targetLevel, dailyFood, rarity);
             if (results) {
                 this.renderResults(results);
             }

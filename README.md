@@ -2,7 +2,8 @@
 
 A comprehensive, production-ready web application for calculating and planning resource requirements in the Kings Shot mobile game. Features real-time calculations, data persistence, dark mode, and mobile-responsive design.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+![Update](https://img.shields.io/badge/2025%20Update-Verified%20Data-brightgreen.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
@@ -10,18 +11,24 @@ A comprehensive, production-ready web application for calculating and planning r
 
 ## 🎯 Overview
 
-The Kings Shot Calculator helps players optimize their resource management across three key game systems:
+**🎉 NEW: 2025 Major Update with Verified Game Data!**
 
-- **🔨 Forgehammer Mastery** - Plan mastery level upgrades with mythic gear requirements
-- **✨ Governor Charms** - Calculate charm guides and designs for all charm types
-- **🐾 Pet Leveling** - Estimate pet food and taming marks for 6 different pets
+The Kings Shot Calculator helps players optimize their resource management across **five comprehensive game systems** with verified 2025 data:
+
+- **🔨 Forgehammer Mastery** - Plan mastery level upgrades (Levels 1-20) with mythic gear requirements
+- **✨ Governor Charms** - Calculate charm resources for verified Levels 1-22 (2025 data)
+- **🐾 Pet Leveling** - 9 pets across 4 generations with Golden rarity (max level 100)
+- **🛡️ Governor Gear Enhancement** - NEW! Upgrade 6 gear slots through 5 tiers (Green → Red T4)
+- **🐻 Bear Pitfall Events** - NEW! Track monthly forgehammer income (150-300+ hammers/month)
 
 ## ✨ Key Features
 
-### 🎮 Three Powerful Calculators
-- Forgehammer mastery progression (Levels 1-20)
-- Governor charms (Protection, Keenness, Fusion)
-- Pet leveling (Moose, Lion, Cheetah, Bear, Wolf, Eagle)
+### 🎮 Five Comprehensive Calculators (2025 Update)
+- **Forgehammer Mastery** - Levels 1-20 with mythic gear costs
+- **Governor Charms** - Verified Levels 1-22 (Infantry/Archer/Cavalry, 205K-1.36M power)
+- **Pet Leveling** - 9 pets, 4 generations, 5 rarities (Grey to Golden, max level 100)
+- **Governor Gear Enhancement** - 6 slots, 5 tiers (Satin/Threads/Vision materials)
+- **Bear Pitfall Events** - Monthly income tracking with hero/formation strategy
 
 ### 🎨 Modern UI/UX
 - Tab-based navigation

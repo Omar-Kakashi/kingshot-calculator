@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Governor Gear Enhancement Calculator</title>
+</head>
+<body>
+    <div class="calculator-container">
+        <h2>🛡️ Governor Gear Enhancement Calculator</h2>
+        <p class="subtitle">Calculate materials needed for gear upgrades (2025 Verified Data)</p>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="currentGear">Current Tier:</label>
+                <select id="currentGear" class="input-field">
+                    <option value="green-0">Green 0★</option>
+                    <option value="green-1">Green 1★</option>
+                    <option value="blue-0">Blue 0★</option>
+                    <option value="blue-1">Blue 1★</option>
+                    <option value="blue-2">Blue 2★</option>
+                    <option value="blue-3">Blue 3★</option>
+                    <option value="purple-0">Purple 0★</option>
+                    <option value="purple-1">Purple 1★</option>
+                    <option value="purple-2">Purple 2★</option>
+                    <option value="purple-3">Purple 3★</option>
+                    <option value="gold-0">Gold T1 0★</option>
+                    <option value="gold-1">Gold T1 1★</option>
+                    <option value="gold-2">Gold T1 2★</option>
+                    <option value="gold-3">Gold T3 3★</option>
+                    <option value="red-0">Red T4 0★</option>
+                    <option value="red-1">Red T4 1★</option>
+                    <option value="red-2">Red T4 2★</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="targetGear">Target Tier:</label>
+                <select id="targetGear" class="input-field">
+                    <option value="blue-0">Blue 0★</option>
+                    <option value="blue-1">Blue 1★</option>
+                    <option value="blue-2">Blue 2★</option>
+                    <option value="blue-3">Blue 3★</option>
+                    <option value="purple-0">Purple 0★</option>
+                    <option value="purple-1">Purple 1★</option>
+                    <option value="purple-2">Purple 2★</option>
+                    <option value="purple-3">Purple 3★</option>
+                    <option value="gold-0">Gold T1 0★</option>
+                    <option value="gold-1">Gold T1 1★</option>
+                    <option value="gold-2">Gold T1 2★</option>
+                    <option value="gold-3">Gold T3 3★</option>
+                    <option value="red-0">Red T4 0★</option>
+                    <option value="red-1">Red T4 1★</option>
+                    <option value="red-2">Red T4 2★</option>
+                    <option value="red-3">Red T4 3★</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="numSlots">Number of Gear Slots (1-6):</label>
+                <input type="number" id="numSlots" class="input-field" min="1" max="6" value="1" placeholder="1-6 slots">
+                <small>Available slots: Coat, Pants, Ring, Weapon, Hat, Necklace</small>
+            </div>
+
+            <div class="button-group">
+                <button id="calculateGear" class="btn btn-primary">Calculate</button>
+                <button id="exportGear" class="btn btn-secondary">Export Results</button>
+            </div>
+        </div>
+
+        <div id="gearResults" class="results-section hidden">
+            <h3>📊 Enhancement Summary</h3>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Satin</div>
+                    <div class="stat-value" id="totalSatin">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Gilded Threads</div>
+                    <div class="stat-value" id="totalThreads">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Artisan's Vision</div>
+                    <div class="stat-value" id="totalVision">0</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <h4>Tier-by-Tier Breakdown</h4>
+                <table id="gearBreakdown">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Satin</th>
+                            <th>Gilded Threads</th>
+                            <th>Artisan's Vision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tips-section">
+                <h4>💡 Enhancement Tips</h4>
+                <div class="tip-card">
+                    <strong>Tier Progression:</strong> Green (0-1★) → Blue (0-3★) → Purple (0-3★) → Gold T3 (3★ = 90K Satin) → Red T4 (3★ = 475K Satin)
+                </div>
+                <div class="tip-card">
+                    <strong>Material Sources:</strong> Satin from events/stores, Gilded Threads from crafting, Artisan's Vision from Blue tier onward
+                </div>
+                <div class="tip-card">
+                    <strong>Strategy:</strong> Prioritize one gear slot to higher tier before upgrading multiple slots evenly
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

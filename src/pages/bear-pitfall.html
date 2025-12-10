@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bear Pitfall Event Calculator</title>
+</head>
+<body>
+    <div class="calculator-container">
+        <h2>🐻 Bear Pitfall Event Calculator</h2>
+        <p class="subtitle">Calculate monthly forgehammer income from Bear Pitfall events</p>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="eventsPerMonth">Events Per Month:</label>
+                <input type="number" id="eventsPerMonth" class="input-field" min="1" max="31" value="15" placeholder="15 (every ~2 days)">
+                <small>Bear Pitfall typically occurs every 2 days (~15 events/month)</small>
+            </div>
+
+            <div class="input-group">
+                <label for="hammersPerEvent">Hammers Per Event:</label>
+                <input type="number" id="hammersPerEvent" class="input-field" min="1" max="100" value="15" placeholder="10-20 average">
+                <small>Depends on your performance - baseline: 10-20 hammers/event</small>
+            </div>
+
+            <div class="button-group">
+                <button id="calculateBear" class="btn btn-primary">Calculate</button>
+                <button id="exportBear" class="btn btn-secondary">Export Results</button>
+            </div>
+        </div>
+
+        <div id="bearResults" class="results-section hidden">
+            <h3>📊 Income Summary</h3>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Monthly Total</div>
+                    <div class="stat-value" id="monthlyHammers">0</div>
+                    <div class="stat-unit">Forgehammers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Yearly Total</div>
+                    <div class="stat-value" id="yearlyHammers">0</div>
+                    <div class="stat-unit">Forgehammers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Daily Average</div>
+                    <div class="stat-value" id="dailyAverage">0</div>
+                    <div class="stat-unit">Hammers/Day</div>
+                </div>
+            </div>
+
+            <div class="baseline-comparison">
+                <h4>Baseline Comparison</h4>
+                <div class="comparison-result" id="baselineComparison">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h4>🎯 Strategy Tips</h4>
+                <div id="bearStrategyTips">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h4>💡 Additional Tips</h4>
+                <div class="tip-card">
+                    <strong>Target Baseline:</strong> Aim for 150-300+ hammers per month for steady progression
+                </div>
+                <div class="tip-card">
+                    <strong>Event Timing:</strong> Occurs every ~2 days, plan participation during active play times
+                </div>
+                <div class="tip-card">
+                    <strong>Optimization:</strong> Maximize all relevant city buffs before events for best rewards
+                </div>
+                <div class="tip-card">
+                    <strong>Long-term:</strong> Consistent participation yields 1,800-3,600+ hammers per year
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

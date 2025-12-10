@@ -7,13 +7,35 @@
             <div class="form-group">
                 <label for="petType">Pet Type</label>
                 <select id="petType" required>
-                    <option value="moose">Moose</option>
-                    <option value="lion">Lion</option>
-                    <option value="cheetah">Cheetah</option>
-                    <option value="bear">Bear</option>
-                    <option value="wolf">Wolf</option>
-                    <option value="eagle">Eagle</option>
+                    <optgroup label="Generation 1">
+                        <option value="wolf">Wolf</option>
+                        <option value="lynx">Lynx</option>
+                        <option value="bison">Bison</option>
+                    </optgroup>
+                    <optgroup label="Generation 2">
+                        <option value="cheetah">Cheetah</option>
+                        <option value="moose">Moose</option>
+                    </optgroup>
+                    <optgroup label="Generation 3">
+                        <option value="lion">Lion</option>
+                        <option value="bear">Bear</option>
+                    </optgroup>
+                    <optgroup label="Generation 4 (Golden Only)">
+                        <option value="goldenBison">Golden Mighty Bison</option>
+                        <option value="giantRhino">Giant Rhino</option>
+                    </optgroup>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="petRarity">Pet Rarity</label>
+                <select id="petRarity" required>
+                    <option value="grey">Grey (Max Lv 50)</option>
+                    <option value="green">Green (Max Lv 60)</option>
+                    <option value="blue">Blue (Max Lv 70)</option>
+                    <option value="purple">Purple (Max Lv 80)</option>
+                    <option value="golden">Golden (Max Lv 100)</option>
+                </select>
+                <small>Rarity determines max level and stat bonuses</small>
             </div>
         </div>
 

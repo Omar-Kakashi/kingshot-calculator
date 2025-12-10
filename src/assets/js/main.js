@@ -108,7 +108,7 @@ const App = {
      * Load page content from HTML files
      */
     loadPageContent: async function() {
-        const pages = ['forgehammer', 'charms', 'pets', 'summary'];
+        const pages = ['forgehammer', 'charms', 'pets', 'governor-gear', 'bear-pitfall', 'summary'];
         
         for (const page of pages) {
             try {
@@ -140,6 +140,12 @@ const App = {
             }
             if (typeof PetCalculator !== 'undefined') {
                 PetCalculator.init();
+            }
+            if (typeof GearCalculator !== 'undefined') {
+                GearCalculator.init();
+            }
+            if (typeof BearPitfallCalculator !== 'undefined') {
+                BearPitfallCalculator.init();
             }
         }, 100);
     },
@@ -237,6 +243,10 @@ const App = {
                         <span class="stat-value">${petData.icon} ${petData.petType}</span>
                     </div>
                     <div class="stat-item">
+                        <span class="stat-label">Rarity:</span>
+                        <span class="stat-value">${petData.rarity} (Gen ${petData.generation})</span>
+                    </div>
+                    <div class="stat-item">
                         <span class="stat-label">Progress:</span>
                         <span class="stat-value">Level ${petData.currentLevel} → ${petData.targetLevel}</span>
                     </div>
@@ -248,9 +258,67 @@ const App = {
                         <span class="stat-label">Timeline:</span>
                         <span class="stat-value">${Formatter.formatDays(petData.days)}</span>
                     </div>
+                </div>
+            `;
+        }
+
+        // Governor Gear summary
+        const gearData = Storage.load('gear_data');
+        const gearSection = document.getElementById('gear-summary');
+        
+        if (gearData && gearSection) {
+            gearSection.innerHTML = `
+                <div class="summary-stats">
                     <div class="stat-item">
-                        <span class="stat-label">Taming Marks:</span>
-                        <span class="stat-value">${Formatter.formatNumber(petData.tamingMarks)}</span>
+                        <span class="stat-label">Progress:</span>
+                        <span class="stat-value">${gearData.currentTier} → ${gearData.targetTier}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Slots:</span>
+                        <span class="stat-value">${gearData.numSlots} gear pieces</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Satin Needed:</span>
+                        <span class="stat-value">${Formatter.formatNumber(gearData.totalSatin)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Gilded Threads:</span>
+                        <span class="stat-value">${Formatter.formatNumber(gearData.totalThreads)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Artisan's Vision:</span>
+                        <span class="stat-value">${Formatter.formatNumber(gearData.totalVision)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Bear Pitfall summary
+        const bearData = Storage.load('bear_data');
+        const bearSection = document.getElementById('bear-summary');
+        
+        if (bearData && bearSection) {
+            bearSection.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Events/Month:</span>
+                        <span class="stat-value">${bearData.eventsPerMonth}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Hammers/Event:</span>
+                        <span class="stat-value">${bearData.hammersPerEvent}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Monthly Income:</span>
+                        <span class="stat-value">${Formatter.formatNumber(bearData.monthlyTotal)} hammers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Yearly Projection:</span>
+                        <span class="stat-value">${Formatter.formatNumber(bearData.yearlyTotal)} hammers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Daily Average:</span>
+                        <span class="stat-value">${bearData.averagePerDay} hammers/day</span>
                     </div>
                 </div>
             `;
@@ -282,7 +350,19 @@ const App = {
             allText += Exporter.formatPetResults(petData) + '\n\n';
         }
 
-        if (!forgeData && !charmData && !petData) {
+        // Governor Gear
+        const gearData = Storage.load('gear_data');
+        if (gearData) {
+            allText += Exporter.formatGearResults(gearData) + '\n\n';
+        }
+
+        // Bear Pitfall
+        const bearData = Storage.load('bear_data');
+        if (bearData) {
+            allText += Exporter.formatBearResults(bearData) + '\n\n';
+        }
+
+        if (!forgeData && !charmData && !petData && !gearData && !bearData) {
             alert('No data to export. Please complete at least one calculation first.');
             return;
         }
@@ -301,6 +381,8 @@ const App = {
             DOM.hide('forgehammerResults');
             DOM.hide('charmResults');
             DOM.hide('petResults');
+            DOM.hide('gearResults');
+            DOM.hide('bearResults');
             
             // Reset form values
             const inputs = document.querySelectorAll('input[type="number"]');
