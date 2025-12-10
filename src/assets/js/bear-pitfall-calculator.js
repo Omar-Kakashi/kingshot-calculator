@@ -126,31 +126,44 @@ const BearPitfallCalculator = {
      * Initialize calculator
      */
     init: function() {
-        const savedData = Storage.load('bear_data');
-        if (savedData) {
-            DOM.get('eventsPerMonth').value = savedData.eventsPerMonth || this.defaults.eventsPerMonth;
-            DOM.get('hammersPerEvent').value = savedData.hammersPerEvent || this.defaults.hammersPerEvent;
-        } else {
-            DOM.get('eventsPerMonth').value = this.defaults.eventsPerMonth;
-            DOM.get('hammersPerEvent').value = this.defaults.hammersPerEvent;
+        const calculateBtn = DOM.get('calculateBear');
+        const exportBtn = DOM.get('exportBear');
+        
+        if (!calculateBtn) {
+            console.error('Bear Pitfall calculator: Calculate button not found');
+            return;
         }
 
-        DOM.get('calculateBear').addEventListener('click', () => {
-            const eventsPerMonth = parseInt(DOM.get('eventsPerMonth').value);
-            const hammersPerEvent = parseInt(DOM.get('hammersPerEvent').value);
+        const savedData = Storage.load('bear_data');
+        const eventsPerMonth = DOM.get('eventsPerMonth');
+        const hammersPerEvent = DOM.get('hammersPerEvent');
+        
+        if (savedData) {
+            if (eventsPerMonth) eventsPerMonth.value = savedData.eventsPerMonth || this.defaults.eventsPerMonth;
+            if (hammersPerEvent) hammersPerEvent.value = savedData.hammersPerEvent || this.defaults.hammersPerEvent;
+        } else {
+            if (eventsPerMonth) eventsPerMonth.value = this.defaults.eventsPerMonth;
+            if (hammersPerEvent) hammersPerEvent.value = this.defaults.hammersPerEvent;
+        }
 
-            const results = this.calculate(eventsPerMonth, hammersPerEvent);
+        calculateBtn.addEventListener('click', () => {
+            const events = parseInt(DOM.get('eventsPerMonth')?.value);
+            const hammers = parseInt(DOM.get('hammersPerEvent')?.value);
+
+            const results = this.calculate(events, hammers);
             if (results) {
                 this.renderResults(results);
             }
         });
 
-        DOM.get('exportBear').addEventListener('click', () => {
-            const data = Storage.load('bear_data');
-            if (data) {
-                const text = Exporter.formatBearResults(data);
-                Exporter.exportAsText(text, 'bear-pitfall-results.txt');
-            }
-        });
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const data = Storage.load('bear_data');
+                if (data) {
+                    const text = Exporter.formatBearResults(data);
+                    Exporter.exportAsText(text, 'bear-pitfall-results.txt');
+                }
+            });
+        }
     }
 };

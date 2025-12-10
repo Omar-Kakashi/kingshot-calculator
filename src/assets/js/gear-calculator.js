@@ -122,21 +122,39 @@ const GearCalculator = {
      * Initialize calculator
      */
     init: function() {
-        const savedData = Storage.load('gear_data');
-        if (savedData) {
-            DOM.get('currentGear').value = Object.keys(this.gearTiers).find(
-                k => this.gearTiers[k].name === savedData.currentTier
-            ) || 'green-0';
-            DOM.get('targetGear').value = Object.keys(this.gearTiers).find(
-                k => this.gearTiers[k].name === savedData.targetTier
-            ) || 'blue-0';
-            DOM.get('numSlots').value = savedData.numSlots || 1;
+        const calculateBtn = DOM.get('calculateGear');
+        const exportBtn = DOM.get('exportGear');
+        
+        if (!calculateBtn) {
+            console.error('Gear calculator: Calculate button not found');
+            return;
         }
 
-        DOM.get('calculateGear').addEventListener('click', () => {
-            const currentTier = DOM.get('currentGear').value;
-            const targetTier = DOM.get('targetGear').value;
-            const numSlots = parseInt(DOM.get('numSlots').value);
+        const savedData = Storage.load('gear_data');
+        if (savedData) {
+            const currentGear = DOM.get('currentGear');
+            const targetGear = DOM.get('targetGear');
+            const numSlots = DOM.get('numSlots');
+            
+            if (currentGear) {
+                currentGear.value = Object.keys(this.gearTiers).find(
+                    k => this.gearTiers[k].name === savedData.currentTier
+                ) || 'green-0';
+            }
+            if (targetGear) {
+                targetGear.value = Object.keys(this.gearTiers).find(
+                    k => this.gearTiers[k].name === savedData.targetTier
+                ) || 'blue-0';
+            }
+            if (numSlots) {
+                numSlots.value = savedData.numSlots || 1;
+            }
+        }
+
+        calculateBtn.addEventListener('click', () => {
+            const currentTier = DOM.get('currentGear')?.value;
+            const targetTier = DOM.get('targetGear')?.value;
+            const numSlots = parseInt(DOM.get('numSlots')?.value);
 
             const results = this.calculate(currentTier, targetTier, numSlots);
             if (results) {
@@ -144,12 +162,14 @@ const GearCalculator = {
             }
         });
 
-        DOM.get('exportGear').addEventListener('click', () => {
-            const data = Storage.load('gear_data');
-            if (data) {
-                const text = Exporter.formatGearResults(data);
-                Exporter.exportAsText(text, 'governor-gear-results.txt');
-            }
-        });
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const data = Storage.load('gear_data');
+                if (data) {
+                    const text = Exporter.formatGearResults(data);
+                    Exporter.exportAsText(text, 'governor-gear-results.txt');
+                }
+            });
+        }
     }
 };

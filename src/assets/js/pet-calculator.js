@@ -277,21 +277,32 @@ const PetCalculator = {
      * Initialize calculator
      */
     init: function() {
+        const calculateBtn = DOM.get('calculatePet');
+        const exportBtn = DOM.get('exportPet');
+        
+        if (!calculateBtn) {
+            console.error('Pet calculator: Calculate button not found');
+            return;
+        }
+
         // Load saved data
         const savedData = Storage.load('pet_data');
         if (savedData) {
-            DOM.get('currentPet').value = savedData.currentLevel;
-            DOM.get('targetPet').value = savedData.targetLevel;
-            DOM.get('dailyFood').value = savedData.dailyFood;
+            const currentPet = DOM.get('currentPet');
+            const targetPet = DOM.get('targetPet');
+            const dailyFood = DOM.get('dailyFood');
+            if (currentPet) currentPet.value = savedData.currentLevel;
+            if (targetPet) targetPet.value = savedData.targetLevel;
+            if (dailyFood) dailyFood.value = savedData.dailyFood;
         }
 
         // Calculate button
-        DOM.get('calculatePet').addEventListener('click', () => {
-            const petType = DOM.get('petType').value;
-            const currentLevel = parseInt(DOM.get('currentPet').value);
-            const targetLevel = parseInt(DOM.get('targetPet').value);
-            const dailyFood = parseInt(DOM.get('dailyFood').value);
-            const rarity = DOM.get('petRarity').value;
+        calculateBtn.addEventListener('click', () => {
+            const petType = DOM.get('petType')?.value;
+            const currentLevel = parseInt(DOM.get('currentPet')?.value);
+            const targetLevel = parseInt(DOM.get('targetPet')?.value);
+            const dailyFood = parseInt(DOM.get('dailyFood')?.value);
+            const rarity = DOM.get('petRarity')?.value || 'grey';
 
             const results = this.calculate(petType, currentLevel, targetLevel, dailyFood, rarity);
             if (results) {
@@ -300,20 +311,24 @@ const PetCalculator = {
         });
 
         // Export button
-        DOM.get('exportPet').addEventListener('click', () => {
-            const data = Storage.load('pet_data');
-            if (data) {
-                const text = Exporter.formatPetResults(data);
-                Exporter.exportAsText(text, 'pet-results.txt');
-            }
-        });
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const data = Storage.load('pet_data');
+                if (data) {
+                    const text = Exporter.formatPetResults(data);
+                    Exporter.exportAsText(text, 'pet-results.txt');
+                }
+            });
+        }
 
         // Auto-calculate if data exists
         if (savedData) {
-            const petType = DOM.get('petType').value;
-            const results = this.calculate(petType, savedData.currentLevel, savedData.targetLevel, savedData.dailyFood);
-            if (results) {
-                this.renderResults(results);
+            const petType = DOM.get('petType')?.value;
+            if (petType) {
+                const results = this.calculate(petType, savedData.currentLevel, savedData.targetLevel, savedData.dailyFood, 'grey');
+                if (results) {
+                    this.renderResults(results);
+                }
             }
         }
     }

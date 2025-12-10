@@ -12,7 +12,7 @@ const App = {
     /**
      * Initialize the application
      */
-    init: function() {
+    init: async function() {
         console.log('Kings Shot Calculator initializing...');
 
         // Load theme preference
@@ -21,10 +21,10 @@ const App = {
         // Initialize tab navigation
         this.initTabs();
 
-        // Load page content
-        this.loadPageContent();
+        // Load page content first
+        await this.loadPageContent();
 
-        // Initialize all calculators
+        // Initialize all calculators after content is loaded
         this.initCalculators();
 
         // Initialize summary page
@@ -130,24 +130,30 @@ const App = {
      * Initialize all calculators
      */
     initCalculators: function() {
-        // Wait a bit for DOM to be ready
+        // Wait a bit for DOM to be fully ready after content load
         setTimeout(() => {
+            console.log('Initializing calculators...');
             if (typeof ForgehammerCalculator !== 'undefined') {
                 ForgehammerCalculator.init();
+                console.log('ForgehammerCalculator initialized');
             }
             if (typeof CharmCalculator !== 'undefined') {
                 CharmCalculator.init();
+                console.log('CharmCalculator initialized');
             }
             if (typeof PetCalculator !== 'undefined') {
                 PetCalculator.init();
+                console.log('PetCalculator initialized');
             }
             if (typeof GearCalculator !== 'undefined') {
                 GearCalculator.init();
+                console.log('GearCalculator initialized');
             }
             if (typeof BearPitfallCalculator !== 'undefined') {
                 BearPitfallCalculator.init();
+                console.log('BearPitfallCalculator initialized');
             }
-        }, 100);
+        }, 200);
     },
 
     /**
