@@ -136,19 +136,30 @@ const ForgehammerCalculator = {
      * Initialize calculator
      */
     init: function() {
+        const calculateBtn = DOM.get('calculateForgehammer');
+        const exportBtn = DOM.get('exportForgehammer');
+        
+        if (!calculateBtn) {
+            console.error('Forgehammer calculator: Calculate button not found');
+            return;
+        }
+
         // Load saved data
         const savedData = Storage.load('forgehammer_data');
         if (savedData) {
-            DOM.get('currentMastery').value = savedData.currentLevel;
-            DOM.get('targetMastery').value = savedData.targetLevel;
-            DOM.get('monthlyIncome').value = savedData.monthlyIncome;
+            const currentMastery = DOM.get('currentMastery');
+            const targetMastery = DOM.get('targetMastery');
+            const monthlyIncome = DOM.get('monthlyIncome');
+            if (currentMastery) currentMastery.value = savedData.currentLevel;
+            if (targetMastery) targetMastery.value = savedData.targetLevel;
+            if (monthlyIncome) monthlyIncome.value = savedData.monthlyIncome;
         }
 
         // Calculate button
-        DOM.get('calculateForgehammer').addEventListener('click', () => {
-            const currentLevel = parseInt(DOM.get('currentMastery').value);
-            const targetLevel = parseInt(DOM.get('targetMastery').value);
-            const monthlyIncome = parseInt(DOM.get('monthlyIncome').value);
+        calculateBtn.addEventListener('click', () => {
+            const currentLevel = parseInt(DOM.get('currentMastery')?.value);
+            const targetLevel = parseInt(DOM.get('targetMastery')?.value);
+            const monthlyIncome = parseInt(DOM.get('monthlyIncome')?.value);
 
             const results = this.calculate(currentLevel, targetLevel, monthlyIncome);
             if (results) {
@@ -157,13 +168,15 @@ const ForgehammerCalculator = {
         });
 
         // Export button
-        DOM.get('exportForgehammer').addEventListener('click', () => {
-            const data = Storage.load('forgehammer_data');
-            if (data) {
-                const text = Exporter.formatForgehammerResults(data);
-                Exporter.exportAsText(text, 'forgehammer-results.txt');
-            }
-        });
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const data = Storage.load('forgehammer_data');
+                if (data) {
+                    const text = Exporter.formatForgehammerResults(data);
+                    Exporter.exportAsText(text, 'forgehammer-results.txt');
+                }
+            });
+        }
 
         // Auto-calculate if data exists
         if (savedData) {

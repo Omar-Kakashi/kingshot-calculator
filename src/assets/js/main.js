@@ -110,7 +110,7 @@ const App = {
     loadPageContent: async function() {
         const pages = ['forgehammer', 'charms', 'pets', 'governor-gear', 'bear-pitfall', 'summary'];
         
-        for (const page of pages) {
+        const loadPromises = pages.map(async (page) => {
             try {
                 const response = await fetch(`pages/${page}.html`);
                 if (response.ok) {
@@ -118,12 +118,16 @@ const App = {
                     const container = document.getElementById(page);
                     if (container) {
                         container.innerHTML = html;
+                        console.log(`Loaded page: ${page}`);
                     }
                 }
             } catch (error) {
                 console.error(`Error loading ${page} page:`, error);
             }
-        }
+        });
+        
+        await Promise.all(loadPromises);
+        console.log('All pages loaded successfully');
     },
 
     /**
@@ -133,27 +137,54 @@ const App = {
         // Wait a bit for DOM to be fully ready after content load
         setTimeout(() => {
             console.log('Initializing calculators...');
-            if (typeof ForgehammerCalculator !== 'undefined') {
-                ForgehammerCalculator.init();
-                console.log('ForgehammerCalculator initialized');
+            
+            try {
+                if (typeof ForgehammerCalculator !== 'undefined') {
+                    ForgehammerCalculator.init();
+                    console.log('✓ ForgehammerCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing ForgehammerCalculator:', e);
             }
-            if (typeof CharmCalculator !== 'undefined') {
-                CharmCalculator.init();
-                console.log('CharmCalculator initialized');
+            
+            try {
+                if (typeof CharmCalculator !== 'undefined') {
+                    CharmCalculator.init();
+                    console.log('✓ CharmCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing CharmCalculator:', e);
             }
-            if (typeof PetCalculator !== 'undefined') {
-                PetCalculator.init();
-                console.log('PetCalculator initialized');
+            
+            try {
+                if (typeof PetCalculator !== 'undefined') {
+                    PetCalculator.init();
+                    console.log('✓ PetCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing PetCalculator:', e);
             }
-            if (typeof GearCalculator !== 'undefined') {
-                GearCalculator.init();
-                console.log('GearCalculator initialized');
+            
+            try {
+                if (typeof GearCalculator !== 'undefined') {
+                    GearCalculator.init();
+                    console.log('✓ GearCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing GearCalculator:', e);
             }
-            if (typeof BearPitfallCalculator !== 'undefined') {
-                BearPitfallCalculator.init();
-                console.log('BearPitfallCalculator initialized');
+            
+            try {
+                if (typeof BearPitfallCalculator !== 'undefined') {
+                    BearPitfallCalculator.init();
+                    console.log('✓ BearPitfallCalculator initialized');
+                }
+            } catch (e) {
+                console.error('Error initializing BearPitfallCalculator:', e);
             }
-        }, 200);
+            
+            console.log('All calculators initialization completed');
+        }, 300);
     },
 
     /**

@@ -211,18 +211,28 @@ const CharmCalculator = {
      * Initialize calculator
      */
     init: function() {
+        const calculateBtn = DOM.get('calculateCharm');
+        const exportBtn = DOM.get('exportCharm');
+        
+        if (!calculateBtn) {
+            console.error('Charm calculator: Calculate button not found');
+            return;
+        }
+
         // Load saved data
         const savedData = Storage.load('charm_data');
         if (savedData) {
-            DOM.get('currentCharm').value = savedData.currentLevel;
-            DOM.get('targetCharm').value = savedData.targetLevel;
+            const currentCharm = DOM.get('currentCharm');
+            const targetCharm = DOM.get('targetCharm');
+            if (currentCharm) currentCharm.value = savedData.currentLevel;
+            if (targetCharm) targetCharm.value = savedData.targetLevel;
         }
 
         // Calculate button
-        DOM.get('calculateCharm').addEventListener('click', () => {
-            const charmType = DOM.get('charmType').value;
-            const currentLevel = parseInt(DOM.get('currentCharm').value);
-            const targetLevel = parseInt(DOM.get('targetCharm').value);
+        calculateBtn.addEventListener('click', () => {
+            const charmType = DOM.get('charmType')?.value;
+            const currentLevel = parseInt(DOM.get('currentCharm')?.value);
+            const targetLevel = parseInt(DOM.get('targetCharm')?.value);
 
             const results = this.calculate(charmType, currentLevel, targetLevel);
             if (results) {
@@ -231,20 +241,24 @@ const CharmCalculator = {
         });
 
         // Export button
-        DOM.get('exportCharm').addEventListener('click', () => {
-            const data = Storage.load('charm_data');
-            if (data) {
-                const text = Exporter.formatCharmResults(data);
-                Exporter.exportAsText(text, 'charm-results.txt');
-            }
-        });
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const data = Storage.load('charm_data');
+                if (data) {
+                    const text = Exporter.formatCharmResults(data);
+                    Exporter.exportAsText(text, 'charm-results.txt');
+                }
+            });
+        }
 
         // Auto-calculate if data exists
         if (savedData) {
-            const charmType = DOM.get('charmType').value;
-            const results = this.calculate(charmType, savedData.currentLevel, savedData.targetLevel);
-            if (results) {
-                this.renderResults(results);
+            const charmType = DOM.get('charmType')?.value;
+            if (charmType) {
+                const results = this.calculate(charmType, savedData.currentLevel, savedData.targetLevel);
+                if (results) {
+                    this.renderResults(results);
+                }
             }
         }
     }
