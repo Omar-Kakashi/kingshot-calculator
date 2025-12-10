@@ -3,42 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingshot Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="refresh" content="0; url=src/index.html">
+    <title>Kings Shot Calculator - Redirecting...</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .loader {
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="calculator">
-            <h1 class="title">Kingshot Calculator</h1>
-            <div class="display-wrapper">
-                <input type="text" class="display" id="display" readonly placeholder="0">
-            </div>
-            <div class="buttons-grid">
-                <button class="btn btn-clear" onclick="clearDisplay()">C</button>
-                <button class="btn btn-operator" onclick="appendOperator('/')">÷</button>
-                <button class="btn btn-operator" onclick="appendOperator('*')">×</button>
-                <button class="btn btn-operator" onclick="deleteLast()">←</button>
-                
-                <button class="btn" onclick="appendNumber('7')">7</button>
-                <button class="btn" onclick="appendNumber('8')">8</button>
-                <button class="btn" onclick="appendNumber('9')">9</button>
-                <button class="btn btn-operator" onclick="appendOperator('-')">-</button>
-                
-                <button class="btn" onclick="appendNumber('4')">4</button>
-                <button class="btn" onclick="appendNumber('5')">5</button>
-                <button class="btn" onclick="appendNumber('6')">6</button>
-                <button class="btn btn-operator" onclick="appendOperator('+')">+</button>
-                
-                <button class="btn" onclick="appendNumber('1')">1</button>
-                <button class="btn" onclick="appendNumber('2')">2</button>
-                <button class="btn" onclick="appendNumber('3')">3</button>
-                <button class="btn btn-operator" onclick="appendOperator('.')">.</button>
-                
-                <button class="btn btn-zero" onclick="appendNumber('0')">0</button>
-                <button class="btn btn-equals" onclick="calculate()">=</button>
-            </div>
-        </div>
+    <div class="loader">
+        <div class="spinner"></div>
+        <h2>⚔️ Kings Shot Calculator</h2>
+        <p>Redirecting to calculator...</p>
+        <p><a href="src/index.html">Click here if not redirected automatically</a></p>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
